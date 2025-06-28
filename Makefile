@@ -1,3 +1,8 @@
+PowerKeGS.po: PowerKeGS
+	./cadius createvolume PowerKeGS.po PowerKeGS 800kb
+	./cadius addfile PowerKeGS.po /PowerKeGS ./PowerKeGS
+	./cadius catalog PowerKeGS.po
+
 PowerKeGS: make.s powerkey.s
 	./Merlin32 -V ./Library make.s
 
