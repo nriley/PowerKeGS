@@ -1,1 +1,22 @@
+# Generated
+_FileInformation.txt
+*_Symbols.txt
+*_Output.txt
+
+.vscode/
+.DS_Store
+
+# Merlin32
+Merlin32
+Library
+
+# Cadius
+cadius
+
+# Reference materials
+adb.asm
+tashnotes
 source/
+fmradio
+PowerKey Mac software/
+References/
