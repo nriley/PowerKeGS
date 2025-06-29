@@ -82,10 +82,10 @@ srqListFull             =   $0984                   ; SRQ list full
 *  Register 1 turns off power (opens relay) when it overflows
 *  Register 2 turns on power (closes relay) when it overflows
 *
-* Register 3 - Default device data
+* Register 3 - Status and device identification information
 *
 *  For PowerKey Classic (PK-1), this is 0x6200
-*   Default address is 0x7
+*   Default address is 0x7 ("Appliance") - FM Radio also uses this; we don't handle collisions (address 8-15)
 *   Default handler ID is 0x22
 *
 * -------------------------------
@@ -93,9 +93,9 @@ srqListFull             =   $0984                   ; SRQ list full
 * 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0
 * -------------------------------
 * 0 ! ! 0 ------- ---------------
-*   ! !   Address Dev handler ID
-*   ! > Service request enable (always clear)
-*   > Exceptional event (always set)
+*   ! !   Address Dev Handler ID (theoretically can be changed to modify behavior)
+*   ! > Service Request enable (always 0 = disabled)
+*   > Exceptional event (always 1 = not used)
 **
 *----------------------------
 * ENTRY POINT
@@ -209,7 +209,6 @@ strMAINMENU
 *----------------------------
 * MENU: DISPLAY STATUS
 *----------------------------
-* We simply subtract 0x11 to the current volume
 *
 
 statusMENU
