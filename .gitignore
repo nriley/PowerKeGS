@@ -2,6 +2,9 @@
 _FileInformation.txt
 *_Symbols.txt
 *_Output.txt
+*.2mg
+*.shk
+
 
 .vscode/
 .DS_Store
