@@ -134,17 +134,17 @@ void drawContents(void)
 #pragma databank 0
 
 
-const char * getUntitledName(void)
+const char * getWindowTitle(void)
 {
-    static int untitledNum = 1;
+    static int documentNum = 1;
     static char buffer[MAX_DOCUMENT_NAME + 1];
-    const char *untitledFormat = resourceString(UNTITLED_STRING, "  Untitled %d  ");
-    
-    sprintf(buffer + 1, untitledFormat, untitledNum);
+    const char *titleFormat = resourceString(TITLE_STRING, "  ADB Explorer %d  ");
+
+    sprintf(buffer + 1, titleFormat, documentNum);
     buffer[0] = strlen(buffer + 1);
     
-    freeResourceString(UNTITLED_STRING);
-    untitledNum++;
+    freeResourceString(TITLE_STRING);
+    documentNum++;
     
     // Returns a Pascal string with a length byte prefix
     return buffer;
@@ -550,7 +550,7 @@ void doAppleAbout(void)
 
 void doFileNew(void)
 {
-    newDocument(getUntitledName());
+    newDocument(getWindowTitle());
 }
 
 

@@ -56,10 +56,10 @@
 
 
 /* Other strings */
-#define UNTITLED_STRING         3001
+#define TITLE_STRING            3001
 #define OPEN_FILE_STRING        3002
 #define SAVE_FILE_STRING        3003
-#define HELLO_WORLD_STRING      3004
+#define INITIAL_STRING          3004
 
 
 /* Windows */

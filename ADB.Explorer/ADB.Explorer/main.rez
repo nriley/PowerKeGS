@@ -260,10 +260,10 @@ resource rCString (PRINT_ERROR_STRING) {"Error printing document"};
 
 
 /* Other strings */
-resource rCString (UNTITLED_STRING) {"  Untitled %d  "};
+resource rCString (TITLE_STRING) {"  ADB Explorer %d  "};
 resource rPString (OPEN_FILE_STRING, noCrossBank) {"Please select file to open."};
 resource rPString (SAVE_FILE_STRING, noCrossBank) {"Save the file as:"};
-resource rPString (HELLO_WORLD_STRING, noCrossBank) {"ADB information will go here..."};
+resource rPString (INITIAL_STRING, noCrossBank) {"ADB devices found:"};
 
 
 /* Alert strings */
@@ -355,7 +355,7 @@ resource rControlTemplate (CONTROL_TEXT_EDIT) {
             nil,                /* Style ref */
                                 /* Text descriptor */
             refIsResource * 8 + dataIsPString,
-            HELLO_WORLD_STRING, /* Text ref */
+            INITIAL_STRING,     /* Text ref */
             0,                  /* Text length */
             nil,                /* Maximum chars */
             nil,                /* Maximum lines */
