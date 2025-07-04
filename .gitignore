@@ -1,4 +1,5 @@
 # Generated
+ADB.Explorer
 PowerKeGS
 _FileInformation.txt
 *_Symbols.txt
@@ -6,6 +7,10 @@ _FileInformation.txt
 *.2mg
 *.po
 *.shk
+*.DS_Store
+*.b
+*.d
+*.h
 
 # Metadata not to share
 *.xcuserdatad
