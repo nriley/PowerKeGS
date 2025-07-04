@@ -34,7 +34,7 @@ TARGETTYPE=desktop
 # here:
 #
 # EMULATOR=gsplus
-# EMULATOR=mame
+EMULATOR=mame
 # EMULATOR=gsport
 
 # By default, the build provides a single boot environment to test with.
@@ -139,7 +139,7 @@ COPYBOOTDIRS=
 # By default, the build expects that you have Ample/mame in the path:
 # 	/Applications/Ample.app/Contents/MacOS/mame64
 # If you have it in a different location, specify that here.
-# MAME=/Applications/Ample.app/Contents/MacOS/mame64
+MAME=/Users/nicholas/Documents/Apple II/Ample.app/Contents/MacOS/mame64
 
 # By default, the build expects that you have the mame ROMs/libs in the path:
 # 	$(HOME)/Library/Application Support/Ample

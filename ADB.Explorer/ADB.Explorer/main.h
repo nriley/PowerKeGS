@@ -7,8 +7,8 @@
  *
  */
 
-#ifndef _GUARD_PROJECTTest_FILEmain_
-#define _GUARD_PROJECTTest_FILEmain_
+#ifndef _GUARD_PROJECTADBExplorer_FILEmain_
+#define _GUARD_PROJECTADBExplorer_FILEmain_
 
 
 /* Menu bars */
@@ -74,4 +74,4 @@
 #define TOOL_STARTUP 1
 
 
-#endif /* defined(_GUARD_PROJECTTest_FILEmain_) */
+#endif /* defined(_GUARD_PROJECTADBExplorer_FILEmain_) */

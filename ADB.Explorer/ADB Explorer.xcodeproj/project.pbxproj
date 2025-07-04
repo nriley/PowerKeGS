@@ -25,35 +25,11 @@
 		E103CC772E10F954003B9767 /* doNotBuild */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = doNotBuild; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-		E103CC9C2E10F954003B9767 /* Exceptions for "ADB Explorer" folder in "Copy Files" phase from "doNotBuild" target */ = {
-			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
-			buildPhase = E103CC752E10F954003B9767 /* CopyFiles */;
-			membershipExceptions = (
-				main.rez,
-				make/config.txt,
-				make/createDiskImage,
-				make/empty.2mg,
-				make/head.mk,
-				make/launchEmulator,
-				make/md2teach,
-				"make/orca-asm",
-				"make/orca-cc",
-				"make/orca-rez",
-				make/system601.2mg,
-				make/tail.mk,
-				make/tar,
-			);
-		};
-/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		E103CC782E10F954003B9767 /* ADB Explorer */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				E103CC9C2E10F954003B9767 /* Exceptions for "ADB Explorer" folder in "Copy Files" phase from "doNotBuild" target */,
-			);
-			path = "ADB Explorer";
+			name = "ADB Explorer";
+			path = ADB.Explorer;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -93,7 +69,7 @@
 /* Begin PBXLegacyTarget section */
 		E103CC6B2E10F954003B9767 /* ADB Explorer */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "-C \"ADB Explorer\" $(ACTION)";
+			buildArgumentsString = "-C ADB.Explorer $(ACTION)";
 			buildConfigurationList = E103CC9F2E10F954003B9767 /* Build configuration list for PBXLegacyTarget "ADB Explorer" */;
 			buildPhases = (
 			);
@@ -478,6 +454,9 @@
 					"$(PROJECT_DIR)/ADB\\ Explorer",
 					"$(PROJECT_DIR)/ADB\\ Explorer",
 					"$(PROJECT_DIR)/ADB\\ Explorer",
+					"$(PROJECT_DIR)/ADB\\ Explorer",
+					"$(PROJECT_DIR)/ADB\\ Explorer",
+					"$(PROJECT_DIR)/ADB.Explorer",
 				);
 				PRODUCT_NAME = doNotBuild;
 			};
@@ -509,6 +488,9 @@
 					"$(PROJECT_DIR)/ADB\\ Explorer",
 					"$(PROJECT_DIR)/ADB\\ Explorer",
 					"$(PROJECT_DIR)/ADB\\ Explorer",
+					"$(PROJECT_DIR)/ADB\\ Explorer",
+					"$(PROJECT_DIR)/ADB\\ Explorer",
+					"$(PROJECT_DIR)/ADB.Explorer",
 				);
 				PRODUCT_NAME = doNotBuild;
 			};

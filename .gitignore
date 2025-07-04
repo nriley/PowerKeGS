@@ -1,11 +1,14 @@
 # Generated
+PowerKeGS
 _FileInformation.txt
 *_Symbols.txt
 *_Output.txt
 *.2mg
+*.po
 *.shk
 
-
+# Metadata not to share
+*.xcuserdatad
 .vscode/
 .DS_Store
 

@@ -3,6 +3,13 @@ PowerKeGS.po: PowerKeGS
 	./cadius addfile PowerKeGS.po /PowerKeGS ./PowerKeGS
 	./cadius catalog PowerKeGS.po
 
+tnfs: PowerKeGS.po
+	scp PowerKeGS.po osric:src/tnfsd/root/
+
+transfer: PowerKeGS.po
+	cp PowerKeGS.po ~/Transfer
+	appswitch -i com.utmapp.UTM
+
 PowerKeGS: make.s powerkey.s
 	./Merlin32 -V ./Library make.s
 

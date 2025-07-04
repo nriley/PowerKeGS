@@ -158,6 +158,8 @@ srqListFull             =   $0984                   ; SRQ list full
 *----------------------------
 
 mainMENU
+                        brl mainMENU0
+                        dc.w 
                         PushLong #strMAINMENU
                         _WriteCString
 
@@ -200,8 +202,8 @@ doQUIT
 *---------- Data
 
 strMAINMENU
-                        asc 0d'PowerKeGS'0d
-                        asc '(c) 2025, Nicholas Riley'0d
+                        asc 0d'PowerKeGS: Sophisticated Circuits PowerKey for the IIgs'0d
+                        asc '(c) 2025 Nicholas Riley'0d
                         asc ' 1. Display status'0d
                         asc ' 2. Power off'0d
                         asc ' Q. Quit'0d00
