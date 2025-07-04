@@ -9,9 +9,12 @@
 	mcopy completion.macros
 	keep completion
 
-	case on
+	case on		; case-sensitive to match C code
 
 receiveRegister3 start
+	longa off
+	longi off
+
 	phb		; save data bank register to stack
 	phd		; save direct register to stack
 
@@ -34,10 +37,12 @@ loop	lda [6],y
 
 noData	inc adbNoData
 
-exit	brk
-	pld
+exit	pld
 	plb
 	clc
 
 	rtl
 	end
+
+	longa on
+	longi on
