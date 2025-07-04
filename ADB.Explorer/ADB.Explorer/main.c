@@ -195,6 +195,23 @@ const char * documentNameFromPath(wStringPtr pathString)
     return buffer;
 }
 
+BOOLEAN appendToDocument(tDocument * documentPtr, char * strToAppend)
+{
+    Handle teH = (Handle)GetCtlHandleFromID(documentPtr->wPtr, CONTROL_TEXT_EDIT);
+    if (toolerror() != 0)
+        return FALSE;
+
+    TESetSelection((Pointer)UINT_MAX, (Pointer)UINT_MAX, teH);
+    if (toolerror() != 0)
+        return FALSE;
+
+    Long strLength = strlen(strToAppend);
+    TEInsert(teRefIsPtr | teDataIsCString, (Ref)strToAppend, strLength, 0, NULL, teH);
+    if (toolerror() != 0)
+        return FALSE;
+
+    return TRUE;
+}
 
 tDocument * newDocument(const char * windowName)
 {
