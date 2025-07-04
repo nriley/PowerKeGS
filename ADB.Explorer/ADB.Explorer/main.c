@@ -961,11 +961,11 @@ int main(void)
     }
     
     ShutDownTools(refIsHandle, toolStartupRef);
-    TOOLFAIL("Unable to shutdown tools");
-    
+    TOOLFAIL("Unable to shut down tools");
+
     TLShutDown();
-    TOOLFAIL("Unable to shutdown tool locator");
-    
+    TOOLFAIL("Unable to shut down tool locator");
+
     MMShutDown(userID);
-    TOOLFAIL("Unable to shutdown memory manager");
+    TOOLFAIL("Unable to shut down memory manager");
 }
