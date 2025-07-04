@@ -236,15 +236,6 @@ tDocument * newDocument(const char * windowName)
     
     documentList = documentPtr;
 
-    /*
-     TEInsert:
-     xRecordHandle    long
-     xInputStyleRef    long
-     xInputStyleVerb    word
-     xInputTextLength    long
-     xInputTextRef    long
-     xInputTextVerb    word
-     */
     return documentPtr;
 }
 
