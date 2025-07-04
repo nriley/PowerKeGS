@@ -9,6 +9,7 @@
 
 
 
+#include <adb.h>
 #include <Memory.h>
 #include <Locator.h>
 #include <Event.h>
@@ -27,6 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <limits.h>
 #include <orca.h>
 
 #include "main.h"
@@ -63,6 +65,13 @@ EventRecord myEvent;
 unsigned int userID;
 tDocument * documentList;
 
+/* ADB */
+
+BOOLEAN adbHasData;
+BOOLEAN adbError;
+Byte adbRegister3[2];
+
+extern void receiveRegister3(void);
 
 /* Forward declarations */
 
@@ -213,6 +222,55 @@ BOOLEAN appendToDocument(tDocument * documentPtr, char * strToAppend)
     return TRUE;
 }
 
+
+void scanADB(tDocument * documentPtr)
+{
+    Word version = ADBVersion();
+    char buf[255];
+    /* XXX use resources for string constants */
+    sprintf(buf, "\rADB Tool Set version %d", version);
+    appendToDocument(documentPtr, buf);
+
+    for (Byte address = 1 ; address <= 0xE ; address++) {
+        char *deviceDescription;
+        switch (address) {
+            case 0x1: deviceDescription = "Dongle"; break;
+            case 0x2: deviceDescription = "Keyboard"; break;
+            case 0x3: deviceDescription = "Mouse"; break;
+            case 0x4: deviceDescription = "Tablet"; break;
+            case 0x5: deviceDescription = "Modem"; break;
+            case 0x6: deviceDescription = "Reserved"; break;
+            case 0x7: deviceDescription = "Appliance"; break;
+            default: deviceDescription = "Relocated"; break;
+        }
+        sprintf(buf, "\rAddress 0x0%x (%s): ", address, deviceDescription);
+        appendToDocument(documentPtr, buf);
+        Word command = talk + (16 * 3) + address;
+        adbError = adbHasData = FALSE;
+        adbRegister3[0] = adbRegister3[1] = 0;
+
+        while (TRUE) {
+            AsyncADBReceive((Pointer)receiveRegister3, command);
+            switch (toolerror()) {
+                case adbBusy: continue;
+                case noError: break;
+                default:
+                    TOOLFAIL("Can't receive from ADB device");
+                    return;
+            }
+            break;
+        }
+        Long timeoutTicks = TickCount() + 60;
+        while (!adbHasData) {
+            if (TickCount() >= timeoutTicks) {
+                appendToDocument(documentPtr, "Receive timed out");
+                break;
+            }
+        }
+    }
+}
+
+
 tDocument * newDocument(const char * windowName)
 {
     // windowName is a Pascal string with a length byte prefix
@@ -252,6 +310,8 @@ tDocument * newDocument(const char * windowName)
         documentList->prevDocument = documentPtr;
     
     documentList = documentPtr;
+
+    scanADB(documentPtr);
 
     return documentPtr;
 }
@@ -944,7 +1004,9 @@ int main(void)
     
     toolStartupRef = StartUpTools(userID, refIsResource, TOOL_STARTUP);
     TOOLFAIL("Unable to start tools");
-    
+
+    ADBStartUp();
+
     initGlobals();
     initMenus();
     InitCursor();
@@ -967,7 +1029,9 @@ int main(void)
                 break;
         }
     }
-    
+
+    ADBShutDown();
+
     ShutDownTools(refIsHandle, toolStartupRef);
     TOOLFAIL("Unable to shut down tools");
 
@@ -977,3 +1041,5 @@ int main(void)
     MMShutDown(userID);
     TOOLFAIL("Unable to shut down memory manager");
 }
+
+#append "completion.s"

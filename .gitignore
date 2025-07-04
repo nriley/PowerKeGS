@@ -11,6 +11,7 @@ _FileInformation.txt
 *.b
 *.d
 *.h
+*.r
 
 # Metadata not to share
 *.xcuserdatad
