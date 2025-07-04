@@ -260,6 +260,7 @@ void scanADB(tDocument * documentPtr)
             }
             break;
         }
+        /* XXX Is this timeout and separate loop needed? fmradio.s doesn't do it, just loops on adbBusy */
         Long timeoutTicks = TickCount() + 60;
         while (!adbHasData) {
             if (TickCount() >= timeoutTicks) {
