@@ -27,6 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <orca.h>
 
 #include "main.h"
 
@@ -34,7 +35,7 @@
 /* Defines and macros */
 
 #define TOOLFAIL(string) \
-    if (toolerror()) SysFailMgr(toolerror(), "\p" string "\n\r    Error Code -> $");
+    if (toolerror()) SysFailMgr(toolerror(), (Pointer)"\p" string "\n\r    Error Code -> $");
 
 #define MAX_DOCUMENT_NAME 80
 
@@ -59,7 +60,7 @@ typedef struct tDocument
 
 BOOLEAN shouldQuit;
 EventRecord myEvent;
-unsigned int userid;
+unsigned int userID;
 tDocument * documentList;
 
 
@@ -205,7 +206,7 @@ tDocument * newDocument(const char * windowName)
         showErrorAlert(MALLOC_ERROR_STRING, 0);
         return(NULL);
     }
-    documentPtr->printRecordHandle = (PrRecHndl) NewHandle(PRINT_RECORD_SIZE, userid, 0, NULL);
+    documentPtr->printRecordHandle = (PrRecHndl) NewHandle(PRINT_RECORD_SIZE, userID, 0, NULL);
     if (toolerror() != 0) {
         showErrorAlert(MALLOC_ERROR_STRING, toolerror());
         free(documentPtr);
@@ -378,7 +379,7 @@ BOOLEAN loadDocument(tDocument * documentPtr)
         showErrorAlert(OPEN_FILE_ERROR_STRING, toolerror());
         result = FALSE;
     } else {
-        dataHandle = NewHandle(openRecord.eof, userid, attrLocked, NULL);
+        dataHandle = NewHandle(openRecord.eof, userID, attrLocked, NULL);
         
         if (toolerror() != 0) {
             showErrorAlert(MALLOC_ERROR_STRING, toolerror());
@@ -709,12 +710,12 @@ void doEditClear(void)
 
 void handleMenu(void)
 {
-    int menuNum;
-    int menuItemNum;
-    
-    menuNum = myEvent.wmTaskData >> 16;
-    menuItemNum = myEvent.wmTaskData;
-    
+    Word menuNum;
+    Word menuItemNum;
+
+    menuNum = (Word)(myEvent.wmTaskData >> 16);
+    menuItemNum = (Word)myEvent.wmTaskData;
+
     switch (menuItemNum) {
         case APPLE_ABOUT:
             doAppleAbout();
@@ -927,13 +928,13 @@ int main(void)
     int event;
     Ref toolStartupRef;
     
-    userid = MMStartUp();
+    userID = MMStartUp();
     TOOLFAIL("Unable to start memory manager");
     
     TLStartUp();
     TOOLFAIL("Unable to start tool locator");
     
-    toolStartupRef = StartUpTools(userid, refIsResource, TOOL_STARTUP);
+    toolStartupRef = StartUpTools(userID, refIsResource, TOOL_STARTUP);
     TOOLFAIL("Unable to start tools");
     
     initGlobals();
@@ -965,6 +966,6 @@ int main(void)
     TLShutDown();
     TOOLFAIL("Unable to shutdown tool locator");
     
-    MMShutDown(userid);
+    MMShutDown(userID);
     TOOLFAIL("Unable to shutdown memory manager");
 }
