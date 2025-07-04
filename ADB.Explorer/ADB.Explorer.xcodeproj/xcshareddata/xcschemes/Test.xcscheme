@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0830"
+   LastUpgradeVersion = "1640"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9D0B917C1F526C2D004D7E0B"
-               BuildableName = "Test"
-               BlueprintName = "Test"
-               ReferencedContainer = "container:Test.xcodeproj">
+               BlueprintIdentifier = "E103CC6B2E10F954003B9767"
+               BuildableName = "ADB.Explorer"
+               BlueprintName = "ADB.Explorer"
+               ReferencedContainer = "container:ADB.Explorer.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,8 +29,6 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
@@ -49,10 +47,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9D0B917C1F526C2D004D7E0B"
-            BuildableName = "Test"
-            BlueprintName = "Test"
-            ReferencedContainer = "container:Test.xcodeproj">
+            BlueprintIdentifier = "E103CC6B2E10F954003B9767"
+            BuildableName = "ADB.Explorer"
+            BlueprintName = "ADB.Explorer"
+            ReferencedContainer = "container:ADB.Explorer.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <CommandLineArguments>
@@ -61,7 +59,7 @@
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "&quot;$PROJECT_DIR/Test&quot;"
+            argument = "&quot;$PROJECT_DIR/ADB.Explorer&quot;"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -81,8 +79,6 @@
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
-      <AdditionalOptions>
-      </AdditionalOptions>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -90,15 +86,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9D0B917C1F526C2D004D7E0B"
-            BuildableName = "Test"
-            BlueprintName = "Test"
-            ReferencedContainer = "container:Test.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

@@ -19,9 +19,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		E103CC6D2E10F954003B9767 /* Test */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Test; sourceTree = BUILT_PRODUCTS_DIR; };
-		E103CC702E10F954003B9767 /* Test.2mg */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Test.2mg; sourceTree = BUILT_PRODUCTS_DIR; };
-		E103CC722E10F954003B9767 /* Test.shk */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Test.shk; sourceTree = BUILT_PRODUCTS_DIR; };
+		E103CC6D2E10F954003B9767 /* Binary */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Binary; sourceTree = BUILT_PRODUCTS_DIR; };
+		E103CC702E10F954003B9767 /* DiskImage */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DiskImage; sourceTree = BUILT_PRODUCTS_DIR; };
+		E103CC722E10F954003B9767 /* Archive */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Archive; sourceTree = BUILT_PRODUCTS_DIR; };
 		E103CC772E10F954003B9767 /* doNotBuild */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = doNotBuild; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -56,9 +56,9 @@
 		E103CC6E2E10F954003B9767 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E103CC6D2E10F954003B9767 /* Test */,
-				E103CC702E10F954003B9767 /* Test.2mg */,
-				E103CC722E10F954003B9767 /* Test.shk */,
+				E103CC6D2E10F954003B9767 /* Binary */,
+				E103CC702E10F954003B9767 /* DiskImage */,
+				E103CC722E10F954003B9767 /* Archive */,
 				E103CC772E10F954003B9767 /* doNotBuild */,
 			);
 			name = Products;
@@ -67,20 +67,20 @@
 /* End PBXGroup section */
 
 /* Begin PBXLegacyTarget section */
-		E103CC6B2E10F954003B9767 /* ADB Explorer */ = {
+		E103CC6B2E10F954003B9767 /* ADB.Explorer */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "-C ADB.Explorer $(ACTION)";
-			buildConfigurationList = E103CC9F2E10F954003B9767 /* Build configuration list for PBXLegacyTarget "ADB Explorer" */;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = E103CC9F2E10F954003B9767 /* Build configuration list for PBXLegacyTarget "ADB.Explorer" */;
 			buildPhases = (
 			);
 			buildToolPath = /usr/bin/make;
-			buildWorkingDirectory = "";
+			buildWorkingDirectory = /Users/nicholas/Developer/PowerKeGS/ADB.Explorer/ADB.Explorer;
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
 				E103CC782E10F954003B9767 /* ADB Explorer */,
 			);
-			name = "ADB Explorer";
+			name = ADB.Explorer;
 			packageProductDependencies = (
 			);
 			passBuildSettingsInEnvironment = 1;
@@ -105,7 +105,7 @@
 			packageProductDependencies = (
 			);
 			productName = Binary;
-			productReference = E103CC6D2E10F954003B9767 /* Test */;
+			productReference = E103CC6D2E10F954003B9767 /* Binary */;
 			productType = "com.apple.product-type.tool";
 		};
 		E103CC6F2E10F954003B9767 /* DiskImage */ = {
@@ -124,7 +124,7 @@
 			packageProductDependencies = (
 			);
 			productName = DiskImage;
-			productReference = E103CC702E10F954003B9767 /* Test.2mg */;
+			productReference = E103CC702E10F954003B9767 /* DiskImage */;
 			productType = "com.apple.product-type.tool";
 		};
 		E103CC712E10F954003B9767 /* Archive */ = {
@@ -143,7 +143,7 @@
 			packageProductDependencies = (
 			);
 			productName = Archive;
-			productReference = E103CC722E10F954003B9767 /* Test.shk */;
+			productReference = E103CC722E10F954003B9767 /* Archive */;
 			productType = "com.apple.product-type.tool";
 		};
 		E103CC762E10F954003B9767 /* doNotBuild */ = {
@@ -194,7 +194,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E103CC6A2E10F954003B9767 /* Build configuration list for PBXProject "ADB Explorer" */;
+			buildConfigurationList = E103CC6A2E10F954003B9767 /* Build configuration list for PBXProject "ADB.Explorer" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -208,7 +208,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E103CC6B2E10F954003B9767 /* ADB Explorer */,
+				E103CC6B2E10F954003B9767 /* ADB.Explorer */,
 				E103CC6C2E10F954003B9767 /* Binary */,
 				E103CC6F2E10F954003B9767 /* DiskImage */,
 				E103CC712E10F954003B9767 /* Archive */,
@@ -231,209 +231,68 @@
 		E103CC9D2E10F954003B9767 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = CYEL96ZVC2;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
 		E103CC9E2E10F954003B9767 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = CYEL96ZVC2;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
 			};
 			name = Release;
 		};
 		E103CCA02E10F954003B9767 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEBUGGING_SYMBOLS = YES;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = CYEL96ZVC2;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		E103CCA12E10F954003B9767 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = CYEL96ZVC2;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
 		E103CCA32E10F954003B9767 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CYEL96ZVC2;
-				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_NAME = Test;
 			};
 			name = Debug;
 		};
 		E103CCA42E10F954003B9767 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CYEL96ZVC2;
-				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_NAME = Test;
 			};
 			name = Release;
 		};
 		E103CCA62E10F954003B9767 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CYEL96ZVC2;
-				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_NAME = Test.2mg;
 			};
 			name = Debug;
 		};
 		E103CCA72E10F954003B9767 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CYEL96ZVC2;
-				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_NAME = Test.2mg;
 			};
 			name = Release;
 		};
 		E103CCA92E10F954003B9767 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CYEL96ZVC2;
-				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_NAME = Test.shk;
 			};
 			name = Debug;
 		};
 		E103CCAA2E10F954003B9767 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CYEL96ZVC2;
-				ENABLE_HARDENED_RUNTIME = YES;
-				PRODUCT_NAME = Test.shk;
 			};
 			name = Release;
 		};
 		E103CCAC2E10F954003B9767 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CYEL96ZVC2;
-				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"inline(X,Y)=\"\"\n",
 					"extended=double\n",
@@ -465,9 +324,6 @@
 		E103CCAD2E10F954003B9767 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = CYEL96ZVC2;
-				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"inline(X,Y)=\"\"\n",
 					"extended=double\n",
@@ -499,7 +355,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E103CC6A2E10F954003B9767 /* Build configuration list for PBXProject "ADB Explorer" */ = {
+		E103CC6A2E10F954003B9767 /* Build configuration list for PBXProject "ADB.Explorer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E103CC9D2E10F954003B9767 /* Debug */,
@@ -508,7 +364,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E103CC9F2E10F954003B9767 /* Build configuration list for PBXLegacyTarget "ADB Explorer" */ = {
+		E103CC9F2E10F954003B9767 /* Build configuration list for PBXLegacyTarget "ADB.Explorer" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E103CCA02E10F954003B9767 /* Debug */,
