@@ -263,7 +263,7 @@ resource rCString (PRINT_ERROR_STRING) {"Error printing document"};
 resource rCString (TITLE_STRING) {"  ADB Explorer %d  "};
 resource rPString (OPEN_FILE_STRING, noCrossBank) {"Please select file to open."};
 resource rPString (SAVE_FILE_STRING, noCrossBank) {"Save the file as:"};
-resource rPString (INITIAL_STRING, noCrossBank) {"Inspecting IIgs ADB devices..."};
+resource rPString (INITIAL_STRING, noCrossBank) {"Exploring IIgs ADB devices"};
 
 
 /* Alert strings */

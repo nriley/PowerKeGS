@@ -228,7 +228,7 @@ void scanADB(tDocument * documentPtr)
     Word version = ADBVersion();
     char buf[255];
     /* XXX use resources for string constants */
-    sprintf(buf, "\rADB Tool Set version %d", version);
+    sprintf(buf, " using ADB Tool Set version %d\r", version);
     appendToDocument(documentPtr, buf);
 
     for (Byte address = 1 ; address <= 0xE ; address++) {
@@ -243,7 +243,7 @@ void scanADB(tDocument * documentPtr)
             case 0x7: deviceDescription = "Appliance"; break;
             default: deviceDescription = "Relocated"; break;
         }
-        sprintf(buf, "\rAddress 0x0%x (%s): ", address, deviceDescription);
+        sprintf(buf, "\rAddress 0x0%x (%s):\t", address, deviceDescription);
         appendToDocument(documentPtr, buf);
         Word command = talk + (16 * 3) + address;
         adbError = adbHasData = FALSE;
