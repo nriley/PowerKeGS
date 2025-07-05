@@ -27,7 +27,8 @@ receiveRegister3 start
 	lda [7]		; data length [offset 4-6 is RTL address]
 	sta adbRegister3Len
 	beq exit	; no data
-	tay		; y <- length (NOT length + 1 as in sample code)
+	tay		; y <- length
+	iny		; last byte offset is length + 1
 
 loop	lda [7],y
 	dey
