@@ -315,6 +315,21 @@ void scanADB(tDocument * documentPtr)
                 sprintf(buf, " - register 1 length %hhx $%02hhx%02hhx%02hhx", adbDataLen, adbData[2], adbData[1], adbData[0]);
                 appendToDocument(documentPtr, buf);
             }
+        } else if (address == 3 && adbData[1] == 0x01) { /* Mouse - XXX testing */
+            adbDataLen = 2;
+            adbData[1] = 0x00;
+            adbData[2] = 0x02;
+            listenADB(3, address);
+            if (talkADB(3, address) && !adbComplete) {
+                appendToDocument(documentPtr, " - register 3 talk request timed out");
+                continue;
+            }
+            if (adbComplete && adbDataLen == 0) {
+                appendToDocument(documentPtr, " - device disappeared?");
+                continue;
+            }
+            sprintf(buf, " - changed to $%02hhx", adbData[1]);
+            appendToDocument(documentPtr, buf);
         }
     }
 }
