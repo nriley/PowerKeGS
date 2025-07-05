@@ -251,6 +251,19 @@ BOOLEAN talkADB(Byte adbRegister, Byte address)
 }
 
 
+BOOLEAN listenADB(Byte adbRegister, Byte address)
+{
+    /* XXX not working */
+    adbData[0] = listen + (16 * adbRegister) + address;
+    SendInfo(adbDataLen + 1, (Pointer)adbData, transmitADBBytes + adbDataLen);
+    if (toolerror()) {
+        TOOLFAIL("Can't transmit to ADB device");
+        return FALSE;
+    }
+    return TRUE;
+}
+
+
 void scanADB(tDocument * documentPtr)
 {
     Word version = ADBVersion();
@@ -285,8 +298,21 @@ void scanADB(tDocument * documentPtr)
 
         sprintf(buf, "handler 0x%02hhx", adbData[1]);
         appendToDocument(documentPtr, buf);
-            } else {
-                sprintf(buf, "handler 0x%02hhx", adbRegister3[0]);
+        if (address == 7 && adbData[1] == 0x22) { /* PowerKey? */
+            Long timeoutTicks = TickCount() + 120;
+            do {
+                if (TickCount() >= timeoutTicks) {
+                    appendToDocument(documentPtr, " - failed to change register 1");
+                    break;
+                }
+                adbDataLen = 3;
+                adbData[1] = 0xff;
+                adbData[2] = 0xff;
+                adbData[3] = 0xff;
+                listenADB(1, address);
+            } while (talkADB(1, address) && (adbDataLen == 0 || (adbData[0] == 0 && adbData[1] == 0 && adbData[2] == 0)));
+            if (adbDataLen > 0) {
+                sprintf(buf, " - register 1 length %hhx $%02hhx%02hhx%02hhx", adbDataLen, adbData[2], adbData[1], adbData[0]);
                 appendToDocument(documentPtr, buf);
             }
         }
