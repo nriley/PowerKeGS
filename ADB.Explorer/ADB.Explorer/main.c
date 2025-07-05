@@ -284,7 +284,7 @@ void scanADB(tDocument * documentPtr)
             case 0x7: deviceDescription = "Appliance"; break;
             default: deviceDescription = "Relocated"; break;
         }
-        sprintf(buf, "\rAddress 0x0%x (%s):\t", address, deviceDescription);
+        sprintf(buf, "\rAddress $0%x (%s):\t", address, deviceDescription);
         appendToDocument(documentPtr, buf);
 
         if (talkADB(3, address) && !adbComplete) {
@@ -296,7 +296,7 @@ void scanADB(tDocument * documentPtr)
             continue;
         }
 
-        sprintf(buf, "handler 0x%02hhx", adbData[1]);
+        sprintf(buf, "handler $%02hhx (length %hhx)", adbData[1], adbDataLen);
         appendToDocument(documentPtr, buf);
         if (address == 7 && adbData[1] == 0x22) { /* PowerKey? */
             Long timeoutTicks = TickCount() + 120;
