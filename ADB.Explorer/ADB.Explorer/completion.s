@@ -34,7 +34,6 @@ loop	lda [7],y
 	dey
 	sta adbRegister3,y
 	bne loop
-	bra exit
 
 exit	inc adbComplete
 	pld		; restore
