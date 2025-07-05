@@ -68,10 +68,10 @@ tDocument * documentList;
 /* ADB */
 
 BOOLEAN adbComplete;
-Byte adbRegister3Len;
-Byte adbRegister3[2];
+Byte adbDataLen;
+Byte adbData[9];
 
-extern void receiveRegister3(void);
+extern void receiveRegister(void);
 
 /* Forward declarations */
 
@@ -223,6 +223,34 @@ BOOLEAN appendToDocument(tDocument * documentPtr, char * strToAppend)
 }
 
 
+BOOLEAN talkADB(Byte adbRegister, Byte address)
+{
+    Word command = talk + (16 * adbRegister) + address;
+    adbComplete = FALSE;
+    adbDataLen = 0;
+    adbData[0] = adbData[1] = adbData[2] = adbData[3] = adbData[4] = 0;
+
+    while (TRUE) {
+        AsyncADBReceive((Pointer)receiveRegister, command);
+        switch (toolerror()) {
+            case adbBusy: continue;
+            case noError: break;
+            default:
+                TOOLFAIL("Can't receive from ADB device");
+                return FALSE;
+        }
+        break;
+    }
+    /* XXX We only hit this timeout on emulators. fmradio.s doesn't have one - it just loops on adbBusy */
+    Long timeoutTicks = TickCount() + 60;
+    while (!adbComplete) {
+        if (TickCount() >= timeoutTicks)
+            return TRUE;
+    }
+    return adbComplete;
+}
+
+
 void scanADB(tDocument * documentPtr)
 {
     Word version = ADBVersion();
@@ -245,34 +273,18 @@ void scanADB(tDocument * documentPtr)
         }
         sprintf(buf, "\rAddress 0x0%x (%s):\t", address, deviceDescription);
         appendToDocument(documentPtr, buf);
-        Word command = talk + (16 * 3) + address;
-        adbComplete = FALSE;
-        adbRegister3Len = 0;
-        adbRegister3[0] = adbRegister3[1] = 0;
 
-        while (TRUE) {
-            AsyncADBReceive((Pointer)receiveRegister3, command);
-            switch (toolerror()) {
-                case adbBusy: continue;
-                case noError: break;
-                default:
-                    TOOLFAIL("Can't receive from ADB device");
-                    return;
-            }
-            break;
+        if (talkADB(3, address) && !adbComplete) {
+            appendToDocument(documentPtr, "register 3 talk request timed out");
+            continue;
         }
-        /* XXX Is this timeout and separate loop needed? fmradio.s doesn't do it: it just loops on adbBusy */
-        Long timeoutTicks = TickCount() + 60;
-        while (!adbComplete) {
-            if (TickCount() >= timeoutTicks) {
-                sprintf(buf, "Talk request (command %x) timed out", command);
-                appendToDocument(documentPtr, buf);
-                break;
-            }
+        if (adbComplete && adbDataLen == 0) {
+            appendToDocument(documentPtr, "no device");
+            continue;
         }
-        if (adbComplete) {
-            if (adbRegister3Len == 0) {
-                appendToDocument(documentPtr, "no device");
+
+        sprintf(buf, "handler 0x%02hhx", adbData[1]);
+        appendToDocument(documentPtr, buf);
             } else {
                 sprintf(buf, "handler 0x%02hhx", adbRegister3[0]);
                 appendToDocument(documentPtr, buf);
