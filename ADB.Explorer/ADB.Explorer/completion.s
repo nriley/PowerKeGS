@@ -12,37 +12,36 @@
 	case on		; case-sensitive to match C code
 
 receiveRegister3 start
-	longa off
+	longa off	; 8-bit mode
 	longi off
 
-	phb		; save data bank register to stack
-	phd		; save direct register to stack
+	phb		; save data bank register to stack [offset 1]
+	phd		; save direct page to stack [offset 2]
 
-	tsc		; push return address to stack
-	tcd		; push direct page to stack
+	tsc		; SP to accumulator C
+	tcd		; and to direct register
 
-	lda [6]		; length
+	phk		; load our data bank
+	plb		; make it the data bank
+
+	lda [7]		; data length [offset 4-6 is RTL address]
 	sta adbRegister3Len
-	beq noData	; no data
-	tay		; y <- length 
-	iny		; y <- length + 1
+	beq exit	; no data
+	tay		; y <- length (NOT length + 1 as in sample code)
 
-	inc adbHasData
-
-loop	lda [6],y
-	sta adbRegister3,y
+loop	lda [7],y
 	dey
+	sta adbRegister3,y
 	bne loop
 	bra exit
 
-noData	inc adbNoData
-
-exit	pld
+exit	inc adbComplete
+	pld		; restore
 	plb
 	clc
 
 	rtl
 	end
 
-	longa on
+	longa on       ; 16-bit mode
 	longi on

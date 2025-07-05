@@ -67,8 +67,8 @@ tDocument * documentList;
 
 /* ADB */
 
-BOOLEAN adbHasData;
-BOOLEAN adbError;
+BOOLEAN adbComplete;
+Byte adbRegister3Len;
 Byte adbRegister3[2];
 
 extern void receiveRegister3(void);
@@ -246,7 +246,8 @@ void scanADB(tDocument * documentPtr)
         sprintf(buf, "\rAddress 0x0%x (%s):\t", address, deviceDescription);
         appendToDocument(documentPtr, buf);
         Word command = talk + (16 * 3) + address;
-        adbError = adbHasData = FALSE;
+        adbComplete = FALSE;
+        adbRegister3Len = 0;
         adbRegister3[0] = adbRegister3[1] = 0;
 
         while (TRUE) {
@@ -260,12 +261,21 @@ void scanADB(tDocument * documentPtr)
             }
             break;
         }
-        /* XXX Is this timeout and separate loop needed? fmradio.s doesn't do it, just loops on adbBusy */
+        /* XXX Is this timeout and separate loop needed? fmradio.s doesn't do it: it just loops on adbBusy */
         Long timeoutTicks = TickCount() + 60;
-        while (!adbHasData) {
+        while (!adbComplete) {
             if (TickCount() >= timeoutTicks) {
-                appendToDocument(documentPtr, "Receive timed out");
+                sprintf(buf, "Talk request (command %x) timed out", command);
+                appendToDocument(documentPtr, buf);
                 break;
+            }
+        }
+        if (adbComplete) {
+            if (adbRegister3Len == 0) {
+                appendToDocument(documentPtr, "no device");
+            } else {
+                sprintf(buf, "handler 0x%02hhx", adbRegister3[0]);
+                appendToDocument(documentPtr, buf);
             }
         }
     }
