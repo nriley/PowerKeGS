@@ -8,10 +8,9 @@ _FileInformation.txt
 *.po
 *.shk
 *.DS_Store
-*.b
 *.d
-*.h
 *.r
+*.ROOT
 
 # Metadata not to share
 *.xcuserdatad
