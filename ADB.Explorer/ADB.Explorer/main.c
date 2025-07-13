@@ -275,11 +275,12 @@ void scanADB(tDocument * documentPtr)
     for (Byte address = 1 ; address <= 0xE ; address++) {
         char *deviceDescription;
         switch (address) {
-            case 0x1: deviceDescription = "Dongle"; break;
-            case 0x2: deviceDescription = "Keyboard"; break;
-            case 0x3: deviceDescription = "Mouse"; break;
-            case 0x4: deviceDescription = "Tablet"; break;
-            case 0x5: deviceDescription = "Modem"; break;
+            /* 0x0 is reserved for the computer */
+            case 0x1: deviceDescription = "Dongle"; break; /* Protection */
+            case 0x2: deviceDescription = "Keyboard"; break; /* Encoded */
+            case 0x3: deviceDescription = "Mouse"; break; /* Relative */
+            case 0x4: deviceDescription = "Tablet"; break; /* Absolute */
+            case 0x5: deviceDescription = "Modem"; break; /* Data transfer */
             case 0x6: deviceDescription = "Reserved"; break;
             case 0x7: deviceDescription = "Appliance"; break;
             default: deviceDescription = "Relocated"; break;
