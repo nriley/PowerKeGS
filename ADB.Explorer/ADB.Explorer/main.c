@@ -22,6 +22,7 @@
 #include <TextEdit.h>
 #include <Window.h>
 #include <adb.h>
+#include <gsbug.h>
 
 #include <limits.h>
 #include <orca.h>
@@ -245,8 +246,27 @@ BOOLEAN talkADB(Byte adbRegister, Byte address)
 
 BOOLEAN listenADB(Byte adbRegister, Byte address)
 {
-    /* XXX not working */
-    adbData[0] = listen + (16 * adbRegister) + address;
+    /* Command format (e.g. Inside Mac ADB Manager figure 5-2)
+     *   7654 32 10
+     *   ----------
+     *   ADDR 10 RR
+     * The command above is 0x08.
+     * The listen constant in the ORCA/C headers is 0x80 and
+     * its use is undocumented in Table 3-4 of the Apple IIgs
+     * Toolbox Reference. It's listed in the table on page 3-28
+     * and is documented in the internal tool set docs; it's
+     * also the same constant as transmit2ADBBytes. We use the
+     * more general transmitADBBytes instead, as we sometimes
+     * need to transmit more than 2 bytes.
+     */
+    adbData[0] = (16 * address) + 8 + adbRegister;
+    /*
+    char buf[255];
+    sprintf(buf + 1, "adbDataLen:%hd adbData:%p adbData[0]:$%hx",
+            adbDataLen + 1, (Pointer)adbData, adbData[0]);
+    buf[0] = (Byte)strlen(buf + 1);
+    DebugStr((StringPtr)buf);
+    */
     SendInfo(adbDataLen + 1, (Pointer)adbData, transmitADBBytes + adbDataLen);
     if (toolerror()) {
         TOOLFAIL("Can't transmit to ADB device");
