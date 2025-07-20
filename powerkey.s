@@ -75,7 +75,8 @@ srqListFull             =   $0984                   ; SRQ list full
 *     5  If set, relay was last closed as a result of the power key being pressed on the keyboard
 *     4  Always zero
 *   3-0  Firmware version (0b0000 = 1.1, incrementing by 0.1 through 0b1111 = 2.6; 1.2 and 1.4 have been observed)
-*
+*  ADB Tool Set always returns length 0
+* 
 * Registers 1 and 2 - 32-bit timers (read/write)
 *
 *  Set bit 31 of a register to enable its timer
@@ -85,9 +86,11 @@ srqListFull             =   $0984                   ; SRQ list full
 * Register 3 - Status and device identification information
 *
 *  For PowerKey Classic (PK-1), this is 0x6200
-*   Default address is 0x7 ("Appliance") - FM Radio also uses this; we don't handle collisions (address 8-15)
+*   Default address is 0x7 ("Appliance") - FM Radio also uses this
+*   We don't handle collisions (reassignment to address 8-15)
 *   Default handler ID is 0x22
-*
+*  ADB Tool Set only can read the handler ID
+x*
 * -------------------------------
 * 1 1 1 1 1
 * 5 4 3 2 1 0 9 8 7 6 5 4 3 2 1 0
