@@ -1086,4 +1086,4 @@ int main(void)
     TOOLFAIL("Unable to shut down memory manager");
 }
 
-#append "completion.s"
+#append "receive.s"

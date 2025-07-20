@@ -1,13 +1,13 @@
 ;
-;  completion.s
+;  receive.s
 ;  ADB Explorer
 ;
 ;  Created by Nicholas Riley on 7/4/2025.
 ;
 ;
 
-	mcopy completion.macros
-	keep completion
+	mcopy receive.macros
+	keep receive
 
 	case on		; case-sensitive to match C code
 
