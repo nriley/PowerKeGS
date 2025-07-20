@@ -216,7 +216,7 @@ BOOLEAN talkADB(Byte adbRegister, Byte address)
     Word command = talk + (16 * adbRegister) + address;
     adbComplete = FALSE;
     adbDataLen = 0;
-    adbData[0] = adbData[1] = adbData[2] = adbData[3] = adbData[4] = 0;
+    memset(adbData, 0, 9);
 
     while (TRUE) {
         AsyncADBReceive((Pointer)receiveRegister, command);
