@@ -24,11 +24,11 @@ receiveRegister start
 	phk		; load our data bank
 	plb		; make it the data bank
 
-	lda [7]		; data length [offset 4-6 is RTL address]
+	lda [7]		; 0 or data length - 1 [offset 4-6 is RTL address]
+	beq exit	; no data (doesn't touch adbDataLen)
+	ina		; data length
 	sta adbDataLen
-	beq exit	; no data
 	tay		; y <- length
-	iny		; last byte offset is length + 1
 
 loop	lda [7],y
 	dey
