@@ -283,7 +283,8 @@ void scanADB(tDocument *documentPtr)
     sprintf(buf, " using ADB Tool Set version %d\r", version);
     appendToDocument(documentPtr, buf);
 
-    for (Byte address = 1 ; address <= 0xE ; address++) {
+    /* sprintf(buf, "listenADB:%p adbData:%p", listenADB, (Pointer)adbData); */
+    appendToDocument(documentPtr, buf);
     for (Byte address = 1; address <= 0xE; address++) {
         char *deviceDescription;
         switch (address) {
@@ -316,7 +317,7 @@ void scanADB(tDocument *documentPtr)
         sprintf(buf, "\rAddress $0%x (%s):\t", address, deviceDescription);
         appendToDocument(documentPtr, buf);
 
-        if (talkADB(3, address) && !adbComplete) {
+        if (!talkADB(3, address)) {
             appendToDocument(documentPtr, "register 3 talk request timed out");
             continue;
         }
@@ -324,37 +325,111 @@ void scanADB(tDocument *documentPtr)
             appendToDocument(documentPtr, "no device");
             continue;
         }
-
-        sprintf(buf, "handler $%02hhx (length %hhx)", adbData[1], adbDataLen);
+        if (adbDataLen != 2) {
+            sprintf(buf, " - register 3 length %hhx (expected 2)", adbDataLen);
+            continue;
+        }
+        sprintf(buf, "handler $%02hhx", adbData[1]);
         appendToDocument(documentPtr, buf);
-        if (address == 7 && adbData[1] == 0x22) { /* PowerKey? */
-            Long timeoutTicks = TickCount() + 120;
-            do {
-                if (TickCount() >= timeoutTicks) {
-                    appendToDocument(documentPtr,
-                                     " - failed to change register 1");
-                    break;
-                }
-                adbDataLen = 3;
-                adbData[1] = 0xff;
-                adbData[2] = 0xff;
-                adbData[3] = 0xff;
-                listenADB(1, address);
-            } while (talkADB(1, address) &&
-                     (adbDataLen == 0 ||
-                      (adbData[0] == 0 && adbData[1] == 0 && adbData[2] == 0)));
-            if (adbDataLen > 0) {
-                sprintf(buf, " - register 1 length %hhx $%02hhx%02hhx%02hhx",
-                        adbDataLen, adbData[2], adbData[1], adbData[0]);
+        if (adbData[0] & 0x20) {
+            appendToDocument(documentPtr, " - SRQ enabled");
+        }
+        /* XXX Address is bogus on ROM 01 hardware, yet correct on emulators?
+            if ((adbData[0] & 0x0F) != address) {
+                sprintf(buf, " - unexpected address $%02hhx", adbData[0] & 0xF);
                 appendToDocument(documentPtr, buf);
+                continue;
             }
-        } else if (address == 3 /* &&
-                   adbData[1] == 0x01 */) { /* Mouse - XXX testing */
+        */
+        if (address == 7 && adbData[1] == 0x22) { /* PowerKey? */
+            /* Register 0 - status */
             adbDataLen = 2;
+            adbData[1] = 0x01;
+            adbData[2] = 0x00;
+            listenADB(0, address);
+            if (!talkADB(0, address)) {
+                appendToDocument(documentPtr,
+                                 " - register 0 talk request timed out");
+                continue;
+            }
+            if (adbDataLen != 2) {
+                sprintf(buf, " - register 0 length %hhx (expected 2)",
+                        adbDataLen);
+                appendToDocument(documentPtr, buf);
+                continue;
+            }
+            unsigned short version = (adbData[1] & 0xf) + 11;
+            sprintf(buf, " version %hd.%hd", version / 10, version % 10);
+            appendToDocument(documentPtr, buf);
+
+            if ((adbData[1] & 128) == 0)
+                appendToDocument(documentPtr, " powered off, ");
+
+            if (adbData[1] & 32)
+                appendToDocument(documentPtr, " last powered on from keyboard");
+            else if (adbData[1] & 64)
+                appendToDocument(documentPtr, " last powered on from timer");
+
+            if (!talkADB(1, address)) {
+                appendToDocument(documentPtr,
+                                 " - register 1 talk request timed out");
+                continue;
+            }
+            if (adbDataLen != 4) {
+                sprintf(buf, " - register 1 length %hhx (expected 4)",
+                        adbDataLen);
+                appendToDocument(documentPtr, buf);
+                continue;
+            }
+            sprintf(buf, " - power on timer $%02hhx%02hhx%02hhx%02hhx",
+                    adbData[3], adbData[2], adbData[1], adbData[0]);
+            appendToDocument(documentPtr, buf);
+
+            if (!talkADB(2, address)) {
+                appendToDocument(documentPtr,
+                                 " - register 2 talk request timed out");
+                continue;
+            }
+            if (adbDataLen != 4) {
+                sprintf(buf, " - register 2 length %hhx (expected 4)",
+                        adbDataLen);
+                appendToDocument(documentPtr, buf);
+                continue;
+            }
+            sprintf(buf, " - power off timer $%02hhx%02hhx%02hhx%02hhx",
+                    adbData[0], adbData[1], adbData[2], adbData[3]);
+            appendToDocument(documentPtr, buf);
+
+            adbDataLen = 4;
+            adbData[1] = 0xff;
+            adbData[2] = 0xff;
+            adbData[3] = 0xfc;
+            adbData[4] = 0x00;
+            listenADB(2, address);
+
+            if (!talkADB(2, address)) {
+                appendToDocument(documentPtr,
+                                 " - register 2 talk request timed out");
+                continue;
+            }
+            if (adbDataLen != 4) {
+                sprintf(buf, " - register 2 length %hhx (expected 4)",
+                        adbDataLen);
+                appendToDocument(documentPtr, buf);
+                continue;
+            }
+            sprintf(buf, " - now $%02hhx%02hhx%02hhx%02hhx", adbData[0],
+                    adbData[1], adbData[2], adbData[3]);
+            appendToDocument(documentPtr, buf);
+
+        } else if (address == 3 &&
+                   (adbData[1] == 0x01 ||
+                    adbData[1] == 0x02)) { /* Mouse - XXX testing */
+            adbDataLen = 2;
+            adbData[2] = (adbData[1] == 0x01) ? 0x02 : 0x01;
             adbData[1] = 0x00;
-            adbData[2] = 0x02;
             listenADB(3, address);
-            if (talkADB(3, address) && !adbComplete) {
+            if (!talkADB(3, address)) {
                 appendToDocument(documentPtr,
                                  " - register 3 talk request timed out");
                 continue;
