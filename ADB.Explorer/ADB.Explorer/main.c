@@ -61,10 +61,12 @@ EventRecord myEvent;
 unsigned int userID;
 tDocument *documentList;
 
-/* ADB */
-
 BOOLEAN adbComplete;
-Byte adbDataLen;
+Byte adbDataLen; /* Talk: data length (0 or 2-8) NOT including length byte */
+/*
+   Talk: data with MSB in adbData[0]
+   Listen: command in adbData[0]; data with MSB in adbData[1]
+*/
 Byte adbData[9];
 
 extern void receiveRegister(void);
