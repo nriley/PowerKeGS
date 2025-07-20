@@ -279,7 +279,7 @@ void scanADB(tDocument *documentPtr)
 {
     Word version = ADBVersion();
     char buf[255];
-    /* XXX use resources for string constants */
+    /* XXX use resources for string constants when output finalized */
     sprintf(buf, " using ADB Tool Set version %d\r", version);
     appendToDocument(documentPtr, buf);
 
