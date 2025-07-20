@@ -239,7 +239,7 @@ BOOLEAN talkADB(Byte adbRegister, Byte address)
     Long timeoutTicks = TickCount() + 60;
     while (!adbComplete) {
         if (TickCount() >= timeoutTicks)
-            return TRUE;
+            break;
     }
     return adbComplete;
 }
