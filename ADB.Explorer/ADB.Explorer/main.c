@@ -214,7 +214,7 @@ BOOLEAN appendToDocument(tDocument *documentPtr, char *strToAppend)
     return TRUE;
 }
 
-BOOLEAN talkADB(Byte adbRegister, Byte address)
+BOOLEAN talkADB(Byte adbRegister, Byte address, Byte expectedLen, char *errBuf)
 {
     Word command = talk + (16 * adbRegister) + address;
     adbComplete = FALSE;
@@ -241,6 +241,14 @@ BOOLEAN talkADB(Byte adbRegister, Byte address)
         if (TickCount() >= timeoutTicks)
             break;
     }
+    if (!adbComplete) {
+        sprintf(errBuf, " - register %hhd talk request timed out", adbRegister);
+    } else if (adbComplete && expectedLen != adbDataLen) {
+        sprintf(errBuf, " - register %hhd length %hhd (expected %hhd)",
+                adbRegister, adbDataLen, expectedLen);
+    } else {
+        errBuf[0] = '\0';
+    }
     return adbComplete;
 }
 
@@ -263,7 +271,7 @@ BOOLEAN listenADB(Byte adbRegister, Byte address)
     /*
     char buf[255];
     sprintf(buf + 1, "adbDataLen:%hd adbData:%p adbData[0]:$%hx",
-            adbDataLen + 1, (Pointer)adbData, adbData[0]);
+            adb1 + 1, (Pointer)adbData, adbData[0]);
     buf[0] = (Byte)strlen(buf + 1);
     DebugStr((StringPtr)buf);
     */
@@ -317,16 +325,14 @@ void scanADB(tDocument *documentPtr)
         sprintf(buf, "\rAddress $0%x (%s):\t", address, deviceDescription);
         appendToDocument(documentPtr, buf);
 
-        if (!talkADB(3, address)) {
-            appendToDocument(documentPtr, "register 3 talk request timed out");
+        if (!talkADB(3, address, 2, buf)) {
             continue;
         }
-        if (adbComplete && adbDataLen == 0) {
+        if (adbDataLen == 0) {
             appendToDocument(documentPtr, "no device");
             continue;
         }
-        if (adbDataLen != 2) {
-            sprintf(buf, " - register 3 length %hhx (expected 2)", adbDataLen);
+        if (buf[0] != '\0') {
             continue;
         }
         sprintf(buf, "handler $%02hhx", adbData[1]);
@@ -347,17 +353,10 @@ void scanADB(tDocument *documentPtr)
             adbData[1] = 0x01;
             adbData[2] = 0x00;
             listenADB(0, address);
-            if (!talkADB(0, address)) {
-                appendToDocument(documentPtr,
-                                 " - register 0 talk request timed out");
+            if (!talkADB(0, address, 2, buf) || buf[0]) {
                 continue;
             }
-            if (adbDataLen != 2) {
-                sprintf(buf, " - register 0 length %hhx (expected 2)",
-                        adbDataLen);
-                appendToDocument(documentPtr, buf);
-                continue;
-            }
+
             unsigned short version = (adbData[1] & 0xf) + 11;
             sprintf(buf, " version %hd.%hd", version / 10, version % 10);
             appendToDocument(documentPtr, buf);
@@ -370,30 +369,14 @@ void scanADB(tDocument *documentPtr)
             else if (adbData[1] & 64)
                 appendToDocument(documentPtr, " last powered on from timer");
 
-            if (!talkADB(1, address)) {
-                appendToDocument(documentPtr,
-                                 " - register 1 talk request timed out");
-                continue;
-            }
-            if (adbDataLen != 4) {
-                sprintf(buf, " - register 1 length %hhx (expected 4)",
-                        adbDataLen);
-                appendToDocument(documentPtr, buf);
+            if (!talkADB(1, address, 4, buf) || buf[0]) {
                 continue;
             }
             sprintf(buf, " - power on timer $%02hhx%02hhx%02hhx%02hhx",
                     adbData[3], adbData[2], adbData[1], adbData[0]);
             appendToDocument(documentPtr, buf);
 
-            if (!talkADB(2, address)) {
-                appendToDocument(documentPtr,
-                                 " - register 2 talk request timed out");
-                continue;
-            }
-            if (adbDataLen != 4) {
-                sprintf(buf, " - register 2 length %hhx (expected 4)",
-                        adbDataLen);
-                appendToDocument(documentPtr, buf);
+            if (!talkADB(2, address, 4, buf) || buf[0]) {
                 continue;
             }
             sprintf(buf, " - power off timer $%02hhx%02hhx%02hhx%02hhx",
@@ -407,15 +390,7 @@ void scanADB(tDocument *documentPtr)
             adbData[4] = 0xc0;
             listenADB(2, address);
 
-            if (!talkADB(2, address)) {
-                appendToDocument(documentPtr,
-                                 " - register 2 talk request timed out");
-                continue;
-            }
-            if (adbDataLen != 4) {
-                sprintf(buf, " - register 2 length %hhx (expected 4)",
-                        adbDataLen);
-                appendToDocument(documentPtr, buf);
+            if (!talkADB(2, address, 4, buf) || buf[0]) {
                 continue;
             }
             sprintf(buf, " - now $%02hhx%02hhx%02hhx%02hhx", adbData[0],
@@ -429,12 +404,10 @@ void scanADB(tDocument *documentPtr)
             adbData[2] = (adbData[1] == 0x01) ? 0x02 : 0x01;
             adbData[1] = 0x00;
             listenADB(3, address);
-            if (!talkADB(3, address)) {
-                appendToDocument(documentPtr,
-                                 " - register 3 talk request timed out");
+            if (!talkADB(3, address, 2, buf)) {
                 continue;
             }
-            if (adbComplete && adbDataLen == 0) {
+            if (adbDataLen == 0) {
                 appendToDocument(documentPtr, " - device disappeared?");
                 continue;
             }
