@@ -403,8 +403,8 @@ void scanADB(tDocument *documentPtr)
             adbDataLen = 4;
             adbData[1] = 0xff;
             adbData[2] = 0xff;
-            adbData[3] = 0xfc;
-            adbData[4] = 0x00;
+            adbData[3] = 0xff;
+            adbData[4] = 0xc0;
             listenADB(2, address);
 
             if (!talkADB(2, address)) {
