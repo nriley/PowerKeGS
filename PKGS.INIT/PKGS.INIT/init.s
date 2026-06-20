@@ -4,8 +4,8 @@ dummy	private
 	bra	InitStart
 	end
 
-* As documented in Apple II File Type Note for File Type $B6
-* in order to permit unloading if hardware is not detected
+; As documented in Apple II File Type Note for File Type $B6
+; in order to permit unloading if hardware is not detected
 unloadFlagPtr data
 	ds	4
 	end
