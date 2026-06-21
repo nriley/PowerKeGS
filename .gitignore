@@ -11,6 +11,7 @@ _FileInformation.txt
 *.d
 *.r
 *.ROOT
+PKGS.Init/PKGS.Init/PKGS.Init
 
 # Metadata not to share
 *.xcuserdatad
