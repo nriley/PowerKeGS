@@ -43,6 +43,7 @@ active		dc i2'0'
 old_table	ds 4
 
 * Technically unneeded as this is all WindBootInit does, too
+* (recommended by IIgs Tech Note 101: Patching the Toolbox)
 WindBootInit	anop
 	lda #0		; invoked by SetTSPtr
 	clc
