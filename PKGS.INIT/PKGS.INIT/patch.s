@@ -1,22 +1,21 @@
-	case	on
+	mcopy patch.macros
+	keep patch
 
-patchUserShutDown START
+	case on
 
-Temp	equ 1e
+patchWindStatus START
 
-;	brk $ea
+Temp	equ 1
 
 	phd		; save direct page register to stack [offset 2]
-	pha		; space for my vars
+	pha		; make space for variables
 	pha
 	tsc
 	tcd
 
 	pha
 	pha
-	pea 0		; system
-	pea $11		; GS/OS Loader (tool $11)
-	~GetTSPtr
+	~GetTSPtr 0,#$0e ; system tool, Window Manager (tool $0e)
 
 	pla
 	sta <Temp
@@ -30,12 +29,7 @@ Temp	equ 1e
 
 	sta FPT
 
-	pea 0		; user tool set
-	pea $11		; GS/OS Loader (tool $11)
-	pea FPT|-16
-	pea FPT
-
-	~SetTSPtr
+	~SetTSPtr 0,#$0e,FPT
 
 	inc active
 
@@ -48,34 +42,22 @@ quit	pla
 active		dc i2'0'
 old_table	ds 4
 
-UserShutDown	anop
+* Technically unneeded as this is all WindBootInit does, too
+WindBootInit	anop
+	lda #0		; invoked by SetTSPtr
+	clc
+	rtl
 
-*  |-----------
-*  | rtlb         (4)
-*  |-----------
-*  | flag         (4)
-*  |-----------
-*  | userID       (4)
-*  |-----------
-*  | Space        (4)
-*  |-----------
-*  | Previous contents
-*  |
-*  |
+WindStatus	anop
+	jsl powerOff
+	lda #0
+	clc
+	rtl
 
-	phb		;;even up stack
-	pla
-	sta 5,s		;;move the return address
-	pla
-	sta 5,s
-	pla		;;clean up the stack
-	pla
-	plb
-
-FPT	dc i4'$40'	; function pointer table
-	dc i4'LoaderInitialization-1' ; 01
-	ds $10*4	;functions I don't care about
-	dc i4'UserShutDown-1' ; 12
-	ds 20*4		;extra room if needed...
+FPT	dc i4'$6d'	; size of Window Manager function pointer table (overwritten)
+	dc i4'WindBootInit-1' ; 01
+	ds $04*4	; no change
+	dc i4'WindStatus-1' ; 06
+	ds $67*4	; remainder of table (as of GS/OS 6.0.1)
 
 	END

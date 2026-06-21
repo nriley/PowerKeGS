@@ -10,16 +10,21 @@
 #pragma rtl
 
 #include <orca.h>
+#include <locator.h>
 #include <misctool.h>
 #include <stdio.h>
 #include <string.h>
-#include <types.h>
 #include <gsbug.h>
 
 const char bootInfoString[] = "PKGS.Init             v1.0d1";
-LongWord version = 0x01006001; /* in rVersion format */
+LongWord version = 0x01006001; /* in rVersion format - XXX this is wrong */
+
+const Word os_p8_switch = 0x2d;
 
 extern Word *unloadFlagPtr;
+
+extern void p8switch(void);
+extern void patchWindStatus(void);
 
 void setUnloadFlag(void)
 {
@@ -27,15 +32,17 @@ void setUnloadFlag(void)
         *unloadFlagPtr = 1;
 }
 
+void powerOff(void)
+{
+    SysBeep();
+}
+
 int main(void)
 {
     ShowBootInfo((Pointer)bootInfoString, NULL /* iconPtr */);
 
-#if 0
-    Str255 msg = {0, "It worked!"};
-    msg.textLength = strlen((const char *)msg.text);
-    DebugStr(&msg);
-#endif
+    Pointer prevAddr = GetVector(os_p8_switch);
+    SetVector(os_p8_switch, (Pointer)p8switch);
 
     return 0;
 }

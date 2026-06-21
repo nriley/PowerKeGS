@@ -49,7 +49,7 @@ EMULATOR=mame
 # files to this list:
 # SRCDIRS+=
 
-# If you put your main entry point for your project in a file called main.c
+# If you put your main entry point for our project in a file called main.c
 # Then you don't need to change this value.  If you want to call your entry
 # point something other than main.c, set this variable to point to this file.
 ROOTCFILE=main.c
@@ -71,7 +71,8 @@ REZFLAGS+=
 MACGENFLAGS+=
 
 # Add any other macro libraries to include in this variable:
-MACGENMACROS+=
+# ORCA/M's tool macros reference other macros so we need to evaluate in two passes
+MACGENMACROS+=13/ORCAInclude/m=
 
 # Add any arguments you want passed to the assembler to this variable:
 ASMFLAGS+=
