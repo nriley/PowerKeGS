@@ -19,11 +19,11 @@ Temp	equ 1
 
 	pla
 	sta <Temp
-	sta old_table
+	sta oldFPT
 
 	pla
 	sta <Temp+2
-	sta old_table+2 
+	sta oldFPT+2
 
 	lda [<Temp]	; # of functions in tool set
 
@@ -39,8 +39,8 @@ quit	pla
 	rtl
 
 
-active		dc i2'0'
-old_table	ds 4
+active	dc i2'0'
+oldFPT	ds 4
 
 * Technically unneeded as this is all WindBootInit does, too
 * (recommended by IIgs Tech Note 101: Patching the Toolbox)
@@ -51,6 +51,9 @@ WindBootInit	anop
 
 WindStatus	anop
 	jsl powerOff
+
+	~SetTSPtr 0,#$0e,oldFPT
+
 	lda #0
 	clc
 	rtl
