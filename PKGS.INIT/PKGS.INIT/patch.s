@@ -29,7 +29,7 @@ Temp	equ 1
 
 	sta FPT
 
-	~SetTSPtr 0,#$0e,FPT
+	~SetTSPtr 0,#$0e,#FPT
 
 	inc active
 
