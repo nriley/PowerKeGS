@@ -23,14 +23,14 @@
 #define TOOLFAIL(string)        \
     if (toolerror())            \
         SysFailMgr(toolerror(), \
-                   (Pointer) "\p" string "\n\r    Error Code -> $");
+            (Pointer) "\p" string "\n\r    Error Code -> $");
 
 const char bootInfoString[] = "PKGS.Init             v1.0d1";
 LongWord version = 0x01006001; /* in rVersion format - XXX this is wrong */
 
 const Word os_p8_switch = 0x2d;
 
-extern Word *unloadFlagPtr;
+extern Word* unloadFlagPtr;
 
 extern void p8switch(void);
 extern void patchWindStatus(void);
@@ -51,18 +51,25 @@ void setUnloadFlag(void)
         *unloadFlagPtr = 1;
 }
 
-BOOLEAN talkADB(Byte adbRegister, Byte address, Byte expectedLen, char *errBuf)
+void printError(char* error)
+{
+    ErrWriteLine((Pointer) "\p\rAn error occurred while attempting to power off.\r");
+    ErrWriteCString((Pointer)error);
+    ErrWriteCString((Pointer) "\r\rPress the space bar to continue.\r");
+    while ((ReadChar(0) & 0x7f) != ' ')
+        ;
+}
+
+BOOLEAN talkADB(Byte adbRegister, Byte address, Byte expectedLen, char* errBuf)
 {
     Word command = talk + (16 * adbRegister) + address;
     adbComplete = FALSE;
     adbDataLen = 0;
     memset(adbData, 0, 9);
 
-    while (TRUE)
-    {
+    while (TRUE) {
         AsyncADBReceive((Pointer)receiveRegister, command);
-        switch (toolerror())
-        {
+        switch (toolerror()) {
         case adbBusy:
             continue;
         case noError:
@@ -76,22 +83,18 @@ BOOLEAN talkADB(Byte adbRegister, Byte address, Byte expectedLen, char *errBuf)
     /* XXX We only hit this timeout on emulators. fmradio.s doesn't have one -
      * it just loops on adbBusy */
     Long timeoutTicks = TickCount() + 60;
-    while (!adbComplete)
-    {
+    while (!adbComplete) {
         if (TickCount() >= timeoutTicks)
             break;
     }
-    if (!adbComplete)
-    {
-        sprintf(errBuf, " - register %hhd talk request timed out", adbRegister);
-    }
-    else if (adbComplete && expectedLen != adbDataLen)
-    {
-        sprintf(errBuf, " - register %hhd length %hhd (expected %hhd)",
-                adbRegister, adbDataLen, expectedLen);
-    }
-    else
-    {
+    if (!adbComplete) {
+        sprintf(errBuf, "Register %hhd talk request timed out.", adbRegister);
+        printError(errBuf);
+    } else if (adbComplete && expectedLen != adbDataLen) {
+        sprintf(errBuf, "Register %hhd length was %hhd; expected %hhd.",
+            adbRegister, adbDataLen, expectedLen);
+        printError(errBuf);
+    } else {
         errBuf[0] = '\0';
     }
     return adbComplete;
@@ -101,18 +104,11 @@ BOOLEAN listenADB(Byte adbRegister, Byte address)
 {
     adbData[0] = (16 * address) + 8 + adbRegister;
     SendInfo(adbDataLen + 1, (Pointer)adbData, transmitADBBytes + adbDataLen);
-    if (toolerror())
-    {
+    if (toolerror()) {
         TOOLFAIL("Can't transmit to ADB device");
         return FALSE;
     }
     return TRUE;
-}
-
-void printError(char *error) {
-    ErrWriteCString((Pointer)error);
-    ErrWriteCString((Pointer)"\rPress the space bar to proceed.\r");
-    while ((ReadChar(0) & 0x7f) != ' ');
 }
 
 BOOLEAN powerOff(void)
@@ -129,10 +125,20 @@ BOOLEAN powerOff(void)
     InitTextDev(1);
     InitTextDev(2);
 
-    WriteLine((Pointer)("\pShutting down..."));
+    WriteLine((Pointer)("\pPowerKeGS"));
 
-    if (!talkADB(3, 7, 2, buf) || adbDataLen == 0 || buf[0] || adbData[1] != 0x22) {
-        printError("No PowerKey found.");
+    ADBStartUp();
+    if (!talkADB(3, 7, 2, buf) || buf[0] != '\0') {
+        if (!buf[0])
+            printError("Failed to talk to ADB address 7.");
+        return FALSE;
+    }
+    if (adbDataLen == 0) {
+        printError("No device found at ADB address 7.");
+        return FALSE;
+    }
+    if (adbData[1] != 0x22) {
+        printError("Device at ADB address 7 has handler $%02hhx; expected PowerKey ($22).");
         return FALSE;
     }
 
@@ -141,32 +147,32 @@ BOOLEAN powerOff(void)
     adbData[1] = 0x01;
     adbData[2] = 0x00;
     listenADB(0, 7);
-    if (!talkADB(0, 7, 2, buf) || buf[0])
-    {
-        printError("Failed to communicate with PowerKey.");
+    if (!talkADB(0, 7, 2, buf) || buf[0]) {
+        if (!buf[0])
+            printError("Failed to communicate with PowerKey.");
         return FALSE;
     }
 
     unsigned short version = (adbData[1] & 0xf) + 11;
-    sprintf(buf, "Found PowerKey version %hd.%hd\r", version / 10, version % 10);
+    sprintf(buf, "Found PowerKey version %hd.%hd.\r", version / 10, version % 10);
     WriteCString((Pointer)buf);
 
-    if (!talkADB(1, 7, 4, buf) || buf[0])
-    {
-        printError("Unable to read power on timer from PowerKey.");
+    if (!talkADB(1, 7, 4, buf) || buf[0]) {
+        if (!buf[0])
+            printError("Unable to read power on timer from PowerKey.");
         return FALSE;
     }
     sprintf(buf, " - power on timer $%02hhx%02hhx%02hhx%02hhx\r",
-            adbData[3], adbData[2], adbData[1], adbData[0]);
+        adbData[3], adbData[2], adbData[1], adbData[0]);
     WriteCString((Pointer)buf);
 
-    if (!talkADB(2, 7, 4, buf) || buf[0])
-    {
-        printError("Unable to read power off timer from PowerKey.");
+    if (!talkADB(2, 7, 4, buf) || buf[0]) {
+        if (!buf[0])
+            printError("Unable to read power off timer from PowerKey.");
         return FALSE;
     }
     sprintf(buf, " - power off timer $%02hhx%02hhx%02hhx%02hhx\r",
-            adbData[0], adbData[1], adbData[2], adbData[3]);
+        adbData[0], adbData[1], adbData[2], adbData[3]);
     WriteCString((Pointer)buf);
 
     adbDataLen = 4;
@@ -176,9 +182,8 @@ BOOLEAN powerOff(void)
     adbData[4] = 0xc0;
     listenADB(2, 7);
 
-    WriteLine((Pointer)"\pPowering off...");
-    if (!talkADB(2, 7, 4, buf) || buf[0])
-    {
+    WriteLine((Pointer) "\pPowering off...");
+    if (!talkADB(2, 7, 4, buf) || buf[0]) {
         printError("Unable to set power off timer on PowerKey.");
         return FALSE;
     }
