@@ -9,16 +9,16 @@
 
 #pragma rtl
 
-#include <adb.h>
 #include <Event.h>
 #include <QuickDraw.h>
-#include <orca.h>
+#include <adb.h>
+#include <gsbug.h>
 #include <locator.h>
 #include <misctool.h>
+#include <orca.h>
 #include <stdio.h>
 #include <string.h>
 #include <texttool.h>
-#include <gsbug.h>
 
 #define TOOLFAIL(string)        \
     if (toolerror())            \
