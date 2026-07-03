@@ -45,12 +45,16 @@ else ifeq ($(TARGETTYPE),nba)
 else ifeq ($(TARGETTYPE),nda)
     FILETYPE=nda
     BOOTCOPYPATH=System/Desk.Accs
-else ifeq ($(TARGETTYPE),pif)
-    FILETYPE=pif
-    BOOTCOPYPATH=System/System.Setup
 else ifeq ($(TARGETTYPE),xcmd)
     FILETYPE=exe
     BUILDTARGET=$(TARGETDIR)/$(PGM)
+else ifeq ($(TARGETTYPE),init)
+    ifeq ($(INIT_TYPE),Temporary)
+        FILETYPE=tif
+    else
+        FILETYPE=pif
+    endif
+    BOOTCOPYPATH=System/System.Setup
 endif
 
 
@@ -85,14 +89,14 @@ ifneq ($(firstword $(REZ_SRCS)), $(lastword $(REZ_SRCS)))
     $(error Only a single resource file supported, found $(REZ_SRCS))
 endif
 
-BUILD_OBJS=$(ASM_ROOTS) $(C_ROOTS) $(C_OBJS) $(TEACH_FILES)
+BUILD_OBJS=$(C_ROOTS) $(C_OBJS) $(ASM_ROOTS) $(TEACH_FILES)
 ifeq ($(BINTARGET),)
     BUILD_OBJS+=$(REZ_OBJS)
 endif
 BUILD_OBJS_NOSUFFIX=$(C_ROOTS:.root=) $(C_OBJS:.a=) $(ASM_ROOTS:.ROOT=)
 
-ALL_OBJS=$(ASM_OBJS) $(C_ROOTS:.root=.a) $(C_OBJS) $(REZ_OBJS) $(TEACH_FILES)
-ALL_ROOTS=$(ASM_ROOTS) $(C_ROOTS) $(C_OBJS:.a=.root)
+ALL_OBJS=$(C_ROOTS:.root=.a) $(C_OBJS) $(ASM_OBJS) $(REZ_OBJS) $(TEACH_FILES)
+ALL_ROOTS=$(C_ROOTS) $(C_OBJS:.a=.root) $(ASM_ROOTS)
 ALL_DEPS=$(C_DEPS) $(ASM_DEPS) $(REZ_DEPS)
 
 EXECCMD=
@@ -152,7 +156,7 @@ $(TARGETDIR)/$(PGM): $(BUILD_OBJS) $(ASM_SRCS)
 	$(RM) $(TARGETDIR)/$(PGM)
 	$(MERLIN_ASM) linkscript.s $(PGM) $(TARGETDIR)/$(PGM)
 ifneq ($(REZ_OBJS),)
-	$(CP) $(REZ_OBJS)/..namedfork/rsrc $(TARGETDIR)/$(PGM)/..namedfork/rsrc
+	cat $(REZ_OBJS)/..namedfork/rsrc > $(TARGETDIR)/$(PGM)/..namedfork/rsrc
 endif
 	$(CHTYP) -t $(FILETYPE) $(AUXTYPE) $(TARGETDIR)/$(PGM)
 

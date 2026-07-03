@@ -19,6 +19,7 @@ PGM=PKGS.Init
 # 	nba - A HyperStudio new button action
 # 	nda - A new desk accessory
 # 	xcmd - A HyperCard XCMD or XCFN
+# 	init - A permament or temporary initialization file
 #
 # TARGETTYPE=shell
 # TARGETTYPE=desktop
@@ -26,8 +27,8 @@ PGM=PKGS.Init
 # TARGETTYPE=cdev
 # TARGETTYPE=nba
 # TARGETTYPE=nda
-TARGETTYPE=pif
 # TARGETTYPE=xcmd
+TARGETTYPE=init
 
 # Uncomment one of the following lines to force a particular GS emulator.
 # By default, specific paths are tested for these emulators in the below
@@ -49,7 +50,7 @@ EMULATOR=mame
 # files to this list:
 # SRCDIRS+=
 
-# If you put your main entry point for our project in a file called main.c
+# If you put your main entry point for your project in a file called main.c
 # Then you don't need to change this value.  If you want to call your entry
 # point something other than main.c, set this variable to point to this file.
 ROOTCFILE=main.c
@@ -165,6 +166,12 @@ MAME=/Users/nicholas/Documents/Apple II/Ample.app/Contents/MacOS/mame64
 # application (note: only the C desktop template supports message
 # center today)
 # MESSAGE_CENTER=0
+
+# For an init file, there are two kinds.  There are permanent and
+# temporary inits.  The default is a permanent init but use this
+# parament to setting it to Permanent or Temporary to switch between
+# the two kinds
+INIT_TYPE=Permanent
 
 # Add any rules you want to execute before any compiles or assembly
 # commands are called here, if any.  You can generate .c, .s or .h
