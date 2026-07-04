@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E15F4BC52FF88D9F00AE0D11 /* receive.s in Sources */ = {isa = PBXBuildFile; fileRef = E15F4BC32FF88D9F00AE0D11 /* receive.s */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		E103CC752E10F954003B9767 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -23,6 +27,7 @@
 		E103CC702E10F954003B9767 /* DiskImage */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = DiskImage; sourceTree = BUILT_PRODUCTS_DIR; };
 		E103CC722E10F954003B9767 /* Archive */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Archive; sourceTree = BUILT_PRODUCTS_DIR; };
 		E103CC772E10F954003B9767 /* doNotBuild */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = doNotBuild; sourceTree = BUILT_PRODUCTS_DIR; };
+		E15F4BC32FF88D9F00AE0D11 /* receive.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = receive.s; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -48,6 +53,7 @@
 		E103CC662E10F954003B9767 = {
 			isa = PBXGroup;
 			children = (
+				E15F4BC42FF88D9F00AE0D11 /* Shared */,
 				E103CC782E10F954003B9767 /* ADB Explorer */,
 				E103CC6E2E10F954003B9767 /* Products */,
 			);
@@ -63,6 +69,15 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		E15F4BC42FF88D9F00AE0D11 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				E15F4BC32FF88D9F00AE0D11 /* receive.s */,
+			);
+			name = Shared;
+			path = ../Shared;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -222,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E15F4BC52FF88D9F00AE0D11 /* receive.s in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
