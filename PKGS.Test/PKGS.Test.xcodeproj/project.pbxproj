@@ -6,6 +6,11 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		E15F4C772FF893B800AE0D11 /* receive.s in Sources */ = {isa = PBXBuildFile; fileRef = E15F4C752FF893B800AE0D11 /* receive.s */; };
+		E15F4CAB2FF896FF00AE0D11 /* pkgs.c in Sources */ = {isa = PBXBuildFile; fileRef = E15F4CAA2FF896FF00AE0D11 /* pkgs.c */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		E15F4C1C2FF88F9100AE0D11 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -23,6 +28,9 @@
 		E15F4C172FF88F9100AE0D11 /* PKGS.Test.2mg */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PKGS.Test.2mg; sourceTree = BUILT_PRODUCTS_DIR; };
 		E15F4C192FF88F9100AE0D11 /* PKGS.Test.shk */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PKGS.Test.shk; sourceTree = BUILT_PRODUCTS_DIR; };
 		E15F4C1E2FF88F9100AE0D11 /* doNotBuild */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = doNotBuild; sourceTree = BUILT_PRODUCTS_DIR; };
+		E15F4C752FF893B800AE0D11 /* receive.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = receive.s; sourceTree = "<group>"; tabWidth = 8; };
+		E15F4CA92FF896FF00AE0D11 /* pkgs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = pkgs.h; sourceTree = "<group>"; };
+		E15F4CAA2FF896FF00AE0D11 /* pkgs.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = pkgs.c; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -72,6 +80,8 @@
 		E15F4C0D2FF88F9100AE0D11 = {
 			isa = PBXGroup;
 			children = (
+				E15F4C762FF893B800AE0D11 /* Shared */,
+				E15F4C6C2FF8939400AE0D11 /* PKGS.Init */,
 				E15F4C1F2FF88F9100AE0D11 /* PKGS.Test */,
 				E15F4C152FF88F9100AE0D11 /* Products */,
 			);
@@ -87,6 +97,25 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
+		};
+		E15F4C6C2FF8939400AE0D11 /* PKGS.Init */ = {
+			isa = PBXGroup;
+			children = (
+				E15F4CA92FF896FF00AE0D11 /* pkgs.h */,
+				E15F4CAA2FF896FF00AE0D11 /* pkgs.c */,
+			);
+			name = PKGS.Init;
+			path = ../PKGS.Init/PKGS.Init;
+			sourceTree = SOURCE_ROOT;
+		};
+		E15F4C762FF893B800AE0D11 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				E15F4C752FF893B800AE0D11 /* receive.s */,
+			);
+			name = Shared;
+			path = ../Shared;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -245,6 +274,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E15F4CAB2FF896FF00AE0D11 /* pkgs.c in Sources */,
+				E15F4C772FF893B800AE0D11 /* receive.s in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

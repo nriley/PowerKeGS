@@ -36,7 +36,7 @@ TARGETTYPE=desktop
 # here:
 #
 # EMULATOR=gsplus
-# EMULATOR=mame
+EMULATOR=mame
 # EMULATOR=gsport
 
 # By default, the build provides a single boot environment to test with.
@@ -48,7 +48,7 @@ TARGETTYPE=desktop
 
 # Add any other directories where you are putting C or assembly source
 # files to this list:
-# SRCDIRS+=
+SRCDIRS+=../../Shared ../../PKGS.Init/PKGS.Init
 
 # If you put your main entry point for your project in a file called main.c
 # Then you don't need to change this value.  If you want to call your entry
@@ -56,7 +56,7 @@ TARGETTYPE=desktop
 ROOTCFILE=main.c
 
 # Add any arguments you want passed to the C compiler to this variable:
-CFLAGS+=
+CFLAGS+=-i"../../PKGS.Init/PKGS.Init"
 
 # Add any arguments you want passed to the resource compiler to this variable:
 REZFLAGS+=
@@ -72,7 +72,7 @@ REZFLAGS+=
 MACGENFLAGS+=
 
 # Add any other macro libraries to include in this variable:
-MACGENMACROS+=
+MACGENMACROS+=13/ORCAInclude/m=
 
 # Add any arguments you want passed to the assembler to this variable:
 ASMFLAGS+=
@@ -141,7 +141,7 @@ COPYBOOTDIRS=
 # By default, the build expects that you have Ample/mame in the path:
 # 	/Applications/Ample.app/Contents/MacOS/mame64
 # If you have it in a different location, specify that here.
-# MAME=/Applications/Ample.app/Contents/MacOS/mame64
+MAME=/Users/nicholas/Documents/Apple II/Ample.app/Contents/MacOS/mame64
 
 # By default, the build expects that you have the mame ROMs/libs in the path:
 # 	$(HOME)/Library/Application Support/Ample
@@ -152,6 +152,7 @@ COPYBOOTDIRS=
 # 	apple2gs -skip_gameinfo -mouse -window -resolution 1408x1056 -ramsize 4M -sl7 cffa202
 # If you would like to use different arguments, specify that here.
 # MAMEARGS=apple2gs -skip_gameinfo -speed 2 -mouse -window -resolution 1408x1056 -ramsize 4M -sl7 cffa202
+MAMEARGS=apple2gs -skip_gameinfo -mouse -speed 15 -window -resolution 1408x1056 -ramsize 4M -sl7 cffa202
 
 # For a desktop application, it can operate in 640x200 or 320x200
 # resolution.  This setting is used to define which horizontal

@@ -56,7 +56,7 @@ SRCDIRS+=../../Shared
 ROOTCFILE=main.c
 
 # Add any arguments you want passed to the C compiler to this variable:
-CFLAGS+=
+CFLAGS+=-d__PKGS_INIT__
 
 # Add any arguments you want passed to the resource compiler to this variable:
 REZFLAGS+=
