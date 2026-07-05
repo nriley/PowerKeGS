@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "../../Shared"
+		}
+	],
+	"settings": {
+		"files.exclude": {
+			"**/*.d": true,
+			"make/": true
+		},
+		"editor.tabSize": 8
+	}
+}
