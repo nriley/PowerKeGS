@@ -27,7 +27,7 @@
 		E11A80702E35D6CB0019A479 /* PKGS.Init.2mg */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PKGS.Init.2mg; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11A80722E35D6CB0019A479 /* PKGS.Init.shk */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PKGS.Init.shk; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11A80772E35D6CB0019A479 /* doNotBuild */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = doNotBuild; sourceTree = BUILT_PRODUCTS_DIR; };
-		E15F4BC12FF8891200AE0D11 /* receive.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = receive.s; sourceTree = "<group>"; };
+		E15F4BC12FF8891200AE0D11 /* receive.s */ = {isa = PBXFileReference; indentWidth = 8; lastKnownFileType = sourcecode.asm; path = receive.s; sourceTree = "<group>"; tabWidth = 8; usesTabs = 1; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
