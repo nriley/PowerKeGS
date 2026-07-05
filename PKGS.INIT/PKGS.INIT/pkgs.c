@@ -7,11 +7,11 @@
  */
 
 #include <Event.h>
+#include <Locator.h>
+#include <MiscTool.h>
 #include <QuickDraw.h>
 #include <adb.h>
 #include <gsbug.h>
-#include <locator.h>
-#include <MiscTool.h>
 #include <stdio.h>
 #include <string.h>
 #include <texttool.h>
