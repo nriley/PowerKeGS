@@ -109,8 +109,6 @@ BOOLEAN powerOff(void)
     ADBStartUp();
 
     if (!talkADB(3, 7, 2, buf) || buf[0] != '\0') {
-        if (!buf[0])
-            printError("Failed to talk to ADB address 7.");
         return FALSE;
     }
     if (adbDataLen == 0) {
