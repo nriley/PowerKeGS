@@ -116,7 +116,8 @@ BOOLEAN powerOff(void)
         return FALSE;
     }
     if (adbData[1] != 0x22) {
-        printError("Device at ADB address 7 has handler $%02hhx; expected PowerKey ($22).");
+        sprintf(buf, "Device at ADB address 7 has handler $%02hhx; expected PowerKey ($22).", adbData[1]);
+        printError(buf);
         return FALSE;
     }
 
