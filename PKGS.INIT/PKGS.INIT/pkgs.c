@@ -50,7 +50,6 @@ BOOLEAN talkADB(Byte adbRegister, Byte address, Byte expectedLen, char* errBuf)
         case adbBusy:
             continue;
         case noError:
-            adbComplete = TRUE;
             break;
         default:
             TOOLFAIL("Can't receive from ADB device");
