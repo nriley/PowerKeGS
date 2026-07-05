@@ -79,7 +79,7 @@ MACGENMACROS+=13/ORCAInclude/m=
 ASMFLAGS+=
 
 # Add any arguments you want passed to the linker to this variable:
-LDFLAGS+=
+LDFLAGS+=+S +L
 
 # Uncomment the following line if you want to build against the GNO libraries
 # export ORCA=$(ORCA_BINDIR)/gno
