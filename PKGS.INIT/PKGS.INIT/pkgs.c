@@ -70,11 +70,9 @@ BOOLEAN talkADB(Byte adbRegister, Byte address, Byte expectedLen, char* errBuf)
     }
     if (!adbComplete) {
         sprintf(errBuf, "Register %hhd talk request timed out.", adbRegister);
-        printError(errBuf);
     } else if (adbComplete && expectedLen != adbDataLen) {
         sprintf(errBuf, "Register %hhd length was %hhd; expected %hhd.",
             adbRegister, adbDataLen, expectedLen);
-        printError(errBuf);
     } else {
         errBuf[0] = '\0';
     }
@@ -111,10 +109,12 @@ BOOLEAN powerOff(void)
     ADBStartUp();
 
     if (!talkADB(3, 7, 2, buf) || buf[0] != '\0') {
-        return FALSE;
-    }
-    if (adbDataLen == 0) {
-        printError("No device found at ADB address 7.");
+        if (adbDataLen == 0) {
+            printError("No device found at ADB address 7.");
+            return FALSE;
+        }
+        if (buf[0] != '\0')
+            printError(buf);
         return FALSE;
     }
     if (adbData[1] != 0x22) {
