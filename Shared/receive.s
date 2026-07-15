@@ -12,8 +12,8 @@
 	case on		; case-sensitive to match C code
 
 receiveRegister start
-	longa off	; 8-bit mode
-	longi off
+	longa off	; 8-bit accumulator
+	longi off       ; 8-bit index register
 
 	phb		; save data bank register to stack [offset 1]
 	phd		; save direct page register to stack [offset 2]
