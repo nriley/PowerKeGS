@@ -21,9 +21,6 @@ receiveRegister start
 	tsc		; SP to accumulator C
 	tcd		; then to direct page register
 
-	phk		; load our data bank
-	plb		; make it the data bank
-
 	lda [7]		; 0 or data length - 1 [offset 4-6 is RTL address]
 	beq exit	; no data (doesn't touch adbDataLen)
 	ina		; data length
