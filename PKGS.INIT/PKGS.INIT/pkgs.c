@@ -3,7 +3,7 @@
  *  PKGS.Init
  *
  * Created by Nicholas Riley on 7/3/2026.
- * 
+ *
  */
 
 #include <Event.h>
@@ -43,6 +43,7 @@ void printError(char* error)
 BOOLEAN talkADB(Byte adbRegister, Byte address, Byte expectedLen, char* errBuf)
 {
     Word command = talk + (16 * adbRegister) + address;
+
     adbComplete = FALSE;
     adbDataLen = 0;
     memset(adbData, 0, 9);
@@ -59,7 +60,7 @@ BOOLEAN talkADB(Byte adbRegister, Byte address, Byte expectedLen, char* errBuf)
             return FALSE;
         }
         break;
-    } 
+    }
     /* XXX We only hit this timeout on emulators. fmradio.s doesn't have one -
      * it just loops on adbBusy */
     Long timeoutTicks = TickCount() + 60;
