@@ -27,15 +27,21 @@ receiveRegister start
 	lda [7]		; 0 or data length - 1 [offset 4-6 is RTL address]
 	beq exit	; no data (doesn't touch adbDataLen)
 	ina		; data length
-	sta adbDataLen
-	tay		; y <- length
+
+	sta >adbDataLen
+
+	tax		; y <- length
 
 loop	lda [7],y
 	dey
-	sta adbData,y
+
+	tyx
+	sta >adbData,x
+
 	bne loop
 
-exit	inc adbComplete
+exit	lda #$01
+	sta >adbComplete
 	pld		; restore direct page register from stack
 	plb		; restore data bank register from stack
 	clc

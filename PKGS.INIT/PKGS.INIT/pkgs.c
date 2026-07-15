@@ -19,6 +19,7 @@
 #include "pkgs.h"
 
 #pragma noroot
+#pragma memorymodel 1
 
 BOOLEAN adbComplete;
 Byte adbDataLen; /* Talk: data length (0 or 2-8) NOT including length byte */
