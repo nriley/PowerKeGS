@@ -93,6 +93,13 @@ BOOLEAN listenADB(Byte adbRegister, Byte address)
 BOOLEAN powerOff(void)
 {
     char buf[255];
+
+    Word qdVersion = QDVersion();
+    if (toolerror()) {
+        TOOLFAIL("Can't get QuickDraw version");
+        return FALSE;
+    }
+
     GrafOff();
     TextStartUp();
     SetInGlobals(0xff, 0x80);
@@ -105,6 +112,11 @@ BOOLEAN powerOff(void)
     InitTextDev(2);
 
     WriteLine((Pointer)("\pPowerKeGS"));
+
+    if ((qdVersion & 0xffff) < 0x0308) {
+        printError("System Software 6.0.1 or later is required.");
+        return FALSE;
+    }
 
     ADBStartUp();
 
