@@ -33,7 +33,7 @@ extern void receiveRegister(void);
 
 void printError(char* error)
 {
-    ErrWriteLine((Pointer) "\p\rAn error occurred while attempting to power off.\r");
+    ErrWriteLine((Pointer) "\p\rAn error occurred while attempting to power off your Apple IIgs.\r");
     ErrWriteCString((Pointer)error);
     ErrWriteCString((Pointer) "\r\rPress the space bar to continue.\r");
     while ((ReadChar(0) & 0x7f) != ' ')
@@ -122,7 +122,7 @@ BOOLEAN powerOff(void)
 
     if (!talkADB(3, 7, 2, buf) || buf[0] != '\0') {
         if (adbDataLen == 0) {
-            printError("No device found at ADB address 7.");
+            printError("No device was found at ADB address 7.");
             return FALSE;
         }
         if (buf[0] != '\0')
