@@ -172,7 +172,7 @@ BOOLEAN powerOff(void)
     adbData[1] = 0xff;
     adbData[2] = 0xff;
     adbData[3] = 0xff;
-    adbData[4] = 0xc0;
+    adbData[4] = 0xf0;
     listenADB(2, 7);
 
     WriteLine((Pointer) "\pPowering off...");
