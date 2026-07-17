@@ -977,71 +977,6 @@ void dimMenus(void)
     DrawMenuBar();
 }
 
-void handleMessages(void)
-{
-#if MESSAGE_CENTER == 1
-    Handle msgHandle;
-    MessageRecGSPtr msgPtr;
-    wStringPtr pathPtr;
-    tDocument *documentPtr;
-    ResultBuf255Ptr resultBufPtr;
-
-    msgHandle = NewHandle(1, userid, 0, NULL);
-    if (toolerror() != 0) {
-        showErrorAlert(MALLOC_ERROR_STRING, toolerror());
-        return;
-    }
-
-    MessageCenter(getMessage, fileInfoTypeGS, msgHandle);
-    if (toolerror() != 0) {
-        DisposeHandle(msgHandle);
-        return;
-    }
-
-    MessageCenter(deleteMessage, fileInfoTypeGS, msgHandle);
-    HLock(msgHandle);
-    msgPtr = (MessageRecGSPtr)(*msgHandle);
-
-    for (pathPtr = msgPtr->fileNames; pathPtr->length != 0;
-         pathPtr = (wStringPtr)(pathPtr->text + pathPtr->length)) {
-        documentPtr = newDocument(documentNameFromPath(pathPtr));
-        if (documentPtr == NULL)
-            continue;
-
-        documentPtr->pathName =
-            (ResultBuf255Hndl)NewHandle(pathPtr->length + 4, userid, 0, NULL);
-        if (toolerror() != 0) {
-            showErrorAlert(MALLOC_ERROR_STRING, toolerror());
-            closeDocument(documentPtr->wPtr);
-            continue;
-        }
-        HLock((Handle)documentPtr->pathName);
-        resultBufPtr = *(documentPtr->pathName);
-        resultBufPtr->bufSize = pathPtr->length + 4;
-        resultBufPtr->bufString.length = pathPtr->length;
-        memcpy(resultBufPtr->bufString.text, pathPtr->text, pathPtr->length);
-        HUnlock((Handle)documentPtr->pathName);
-
-        documentPtr->isOnDisk = loadDocument(documentPtr);
-
-        if (!documentPtr->isOnDisk) {
-            closeDocument(documentPtr->wPtr);
-            continue;
-        }
-
-        if (msgPtr->printFlag) {
-            doFilePrint();
-            closeDocument(documentPtr->wPtr);
-        }
-    }
-
-    if (msgPtr->printFlag)
-        doFileQuit();
-
-    DisposeHandle(msgHandle);
-#endif
-}
-
 void initMenus(void)
 {
     int height;
@@ -1092,8 +1027,6 @@ int main(void)
     initGlobals();
     initMenus();
     InitCursor();
-
-    handleMessages();
 
     newDocument(getWindowTitle());
 
