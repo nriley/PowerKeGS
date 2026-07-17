@@ -381,23 +381,6 @@ void scanADB(tDocument *documentPtr)
             sprintf(buf, " - power off timer $%02hhx%02hhx%02hhx%02hhx",
                     adbData[0], adbData[1], adbData[2], adbData[3]);
             appendToDocument(documentPtr, buf);
-
-        } else if (address == 3 &&
-                   (adbData[1] == 0x01 ||
-                    adbData[1] == 0x02)) { /* Mouse - XXX testing */
-            adbDataLen = 2;
-            adbData[2] = (adbData[1] == 0x01) ? 0x02 : 0x01;
-            adbData[1] = 0x00;
-            listenADB(3, address);
-            if (!talkADB(3, address, 2, buf)) {
-                continue;
-            }
-            if (adbDataLen == 0) {
-                appendToDocument(documentPtr, " - device disappeared?");
-                continue;
-            }
-            sprintf(buf, " - changed to $%02hhx", adbData[1]);
-            appendToDocument(documentPtr, buf);
         }
     }
 }
@@ -1111,6 +1094,8 @@ int main(void)
     InitCursor();
 
     handleMessages();
+
+    newDocument(getWindowTitle());
 
     while (!shouldQuit) {
         HandleDiskInsert(hdiScan | hdiHandle, 0);
