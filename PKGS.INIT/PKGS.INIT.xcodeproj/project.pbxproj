@@ -6,10 +6,6 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		E15F4BC22FF88A8800AE0D11 /* receive.s in Sources */ = {isa = PBXBuildFile; fileRef = E15F4BC12FF8891200AE0D11 /* receive.s */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXCopyFilesBuildPhase section */
 		E11A80752E35D6CB0019A479 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -27,7 +23,6 @@
 		E11A80702E35D6CB0019A479 /* PKGS.Init.2mg */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PKGS.Init.2mg; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11A80722E35D6CB0019A479 /* PKGS.Init.shk */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = PKGS.Init.shk; sourceTree = BUILT_PRODUCTS_DIR; };
 		E11A80772E35D6CB0019A479 /* doNotBuild */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = doNotBuild; sourceTree = BUILT_PRODUCTS_DIR; };
-		E15F4BC12FF8891200AE0D11 /* receive.s */ = {isa = PBXFileReference; indentWidth = 8; lastKnownFileType = sourcecode.asm; path = receive.s; sourceTree = "<group>"; tabWidth = 8; usesTabs = 1; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
@@ -76,7 +71,6 @@
 		E11A80662E35D6CB0019A479 = {
 			isa = PBXGroup;
 			children = (
-				E16BF25F2FF888C800F88D80 /* Shared */,
 				E11A80782E35D6CB0019A479 /* PKGS.Init */,
 				E11A806E2E35D6CB0019A479 /* Products */,
 			);
@@ -92,15 +86,6 @@
 			);
 			name = Products;
 			sourceTree = "<group>";
-		};
-		E16BF25F2FF888C800F88D80 /* Shared */ = {
-			isa = PBXGroup;
-			children = (
-				E15F4BC12FF8891200AE0D11 /* receive.s */,
-			);
-			name = Shared;
-			path = ../Shared;
-			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -259,7 +244,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E15F4BC22FF88A8800AE0D11 /* receive.s in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,8 +7,6 @@
  *
  */
 
-#pragma memorymodel 1
-
 #include <Control.h>
 #include <Desk.h>
 #include <Event.h>
