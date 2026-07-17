@@ -21,4 +21,4 @@ PowerKeGS switches to 80-column text mode. If it experiences a problem, it displ
 <img width="2562" height="1825" alt="ADB Explorer" src="https://github.com/user-attachments/assets/362b943f-c922-4a54-9f63-88a921f42087" />
 
 **How do I build this?** PowerKeGS and ADB Explorer are written in ORCA/C and ORCA/M,
- built with Jeremy Rand's excellent [https://github.com/jeremysrand/Apple2GSBuildPipeline](Apple2GSBuildPipeline). You don't need a Mac/Xcode to build but you do need Golden Gate and the ORCA tools installed; links to all of these are available [here](https://github.com/jeremysrand/Apple2GSBuildPipeline#apple2gsbuildpipeline).
+ built with Jeremy Rand's excellent [Apple2GSBuildPipeline](https://github.com/jeremysrand/Apple2GSBuildPipeline). You don't need a Mac/Xcode to build but you do need Golden Gate and the ORCA tools installed; links to all of these are available [here](https://github.com/jeremysrand/Apple2GSBuildPipeline#apple2gsbuildpipeline).
