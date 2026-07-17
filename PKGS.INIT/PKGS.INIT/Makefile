@@ -185,6 +185,7 @@ INIT_TYPE=Permanent
 # character.  Xcode makes it a bit tough to type a tab character by
 # default.  Press option-tab within Xcode to insert a tab character.
 gen:
+	$(ORCA_BINDIR)/mkfs-profuse --name=PowerKeGS --format=2img make/empty.2mg
 	$(CHTYP) -t icn dist/Icons/PKGS.Icons
 
 # For any files you generated in the gen target above, you should
