@@ -12,6 +12,7 @@
 			"**/*.d": true,
 			"make/": true
 		},
-		"editor.tabSize": 8
+		"editor.tabSize": 8,
+		"wren.enableDiagnostics": false
 	}
 }
