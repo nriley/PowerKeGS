@@ -284,7 +284,7 @@ resource rAlertString (ABOUT_ALERT_STRING) {
     "ADB Explorer\n"
     "  by Nicholas Riley\n"
     "\n"
-    "Copyright \$A9 2025, Nicholas Riley\n"
+    "Copyright \$A9 2025-26, Nicholas Riley\n"
 	"\n"
     "Contains libraries from ORCA/C,\n"
     "Copyright \$A9 1991, Byte Works Inc.\n"
