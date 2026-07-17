@@ -22,7 +22,8 @@ resource rVersion (1) {
     },
     verUS,
     "ADB Explorer",
-    "Copyright \$A9 2025, Nicholas Riley"
+    "Copyright \$A9 2025-26, Nicholas Riley"
+};
 
 resource rIcon (1) {
 	$8000,                  // kind
