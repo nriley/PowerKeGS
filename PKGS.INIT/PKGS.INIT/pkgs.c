@@ -180,5 +180,10 @@ BOOLEAN powerOff(void)
         printError("Unable to set power off timer on PowerKey.");
         return FALSE;
     }
+
+    /* Even with timer set to maximum, PowerKey takes a bit of time to power off */
+    Long endTicks = TickCount() + 60;
+    while (TickCount() < endTicks);
+
     return TRUE;
 }
