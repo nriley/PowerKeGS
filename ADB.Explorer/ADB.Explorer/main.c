@@ -288,11 +288,10 @@ void scanADB(tDocument *documentPtr)
     Word version = ADBVersion();
     char buf[255];
     /* XXX use resources for string constants when output finalized */
-    sprintf(buf, "Using ADB Tool Set version %d\r", version);
+    sprintf(buf, " using ADB Tool Set version %d\r", version);
     appendToDocument(documentPtr, buf);
 
     /* sprintf(buf, "listenADB:%p adbData:%p", listenADB, (Pointer)adbData); */
-    appendToDocument(documentPtr, buf);
     for (Byte address = 1; address <= 0xE; address++) {
         char *deviceDescription;
         switch (address) {
