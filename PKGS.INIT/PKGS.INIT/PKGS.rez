@@ -9,4 +9,62 @@
 
 #include "types.rez"
 
+resource rVersion (1) {
+	{
+	    1,          /* Major version number in BCD */
+	    0,          /* Minor version number in BCD */
+	    0,          /* Bug version number in BCD */
+	    development,/* Development phase */
+	    1           /* Release number */
+	},
+	verUS,
+	"PowerKeGS",
+	"Copyright \$A9 2026, Nicholas Riley"
+};
 
+resource rIcon (1) {
+	$8001,			// monochrome
+	16,			// height
+	16,			// width
+
+	$"0000800010001000"
+	$"F00000000000000F"
+	$"0FFFFFFFFFFFFFF0"
+	$"0FFFFFFFF00FFFF0"
+	$"0FFFFFFF0F0FFFF0"
+	$"0FFFFFF0FF0FFFF0"
+	$"0FFFFF0FFF0FFFF0"
+	$"0FFFF0FFFF0FFFF0"
+	$"0FFF0FFFFF0FFFF0"
+	$"0FFF0FFFFF0FFFF0"
+	$"0FFFF0FFFF0FFFF0"
+	$"0FFFFF0FFF0FFFF0"
+	$"0FFFFFF0FF0FFFF0"
+	$"0FFFFFFF0F0FFFF0"
+	$"0FFFFFFFF00FFFF0"
+	$"0FFFFFFFFFFFFFF0",
+
+	$"F00000000000000F"
+	$"0FFFFFFFFFFFFFF0"
+	$"FFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFF"
+	$"FFFFFFFFFFFFFFFF"
+	$"0FFFFFFFFFFFFFFF";
+};
+
+resource rBundle(1) {
+	1,			// rIcon ID
+	1,			// rBundle ID
+	{ }			// no documents supported
+};
