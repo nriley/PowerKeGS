@@ -3,16 +3,20 @@ ADB.Explorer/ADB.Explorer/ADB.Explorer
 build/
 PowerKeGS
 _FileInformation.txt
-*_Symbols.txt
 *_Output.txt
+*_Symbols.txt
 *.2mg
-*.po
-*.shk
-*.DS_Store
+*.a
+*.adb
 *.d
+*.DS_Store
+*.macros
+*.po
 *.r
 *.ROOT
+*.shk
 PKGS.Init/PKGS.Init/PKGS.Init
+Teach/
 
 # Metadata not to share
 *.xcuserdatad
