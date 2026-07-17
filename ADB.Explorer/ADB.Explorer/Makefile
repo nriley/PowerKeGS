@@ -175,6 +175,7 @@ MESSAGE_CENTER=0
 # character.  Xcode makes it a bit tough to type a tab character by
 # default.  Press option-tab within Xcode to insert a tab character.
 gen:
+	$(ORCA_BINDIR)/mkfs-profuse --name=ADB.Explorer --format=2img make/empty.2mg
 
 # For any files you generated in the gen target above, you should
 # add rules in genclean to remove those generated files when you
