@@ -385,20 +385,6 @@ void scanADB(tDocument *documentPtr)
                     adbData[0], adbData[1], adbData[2], adbData[3]);
             appendToDocument(documentPtr, buf);
 
-            adbDataLen = 4;
-            adbData[1] = 0xff;
-            adbData[2] = 0xff;
-            adbData[3] = 0xff;
-            adbData[4] = 0xc0;
-            listenADB(2, address);
-
-            if (!talkADB(2, address, 4, buf) || buf[0]) {
-                continue;
-            }
-            sprintf(buf, " - now $%02hhx%02hhx%02hhx%02hhx", adbData[0],
-                    adbData[1], adbData[2], adbData[3]);
-            appendToDocument(documentPtr, buf);
-
         } else if (address == 3 &&
                    (adbData[1] == 0x01 ||
                     adbData[1] == 0x02)) { /* Mouse - XXX testing */
