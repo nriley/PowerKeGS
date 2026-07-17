@@ -17,8 +17,8 @@ resource rVersion (1) {
         1,          /* Major version number in BCD */
         0,          /* Minor version number in BCD */
         0,          /* Bug version number in BCD */
-        development,/* Development phase */
-        1           /* Release number */
+        release,	/* Development phase */
+        $00         /* Release number */
     },
     verUS,
     "ADB Explorer",
