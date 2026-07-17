@@ -104,7 +104,7 @@ MD_SRCS=
 # Then, during the copy phase, myIconFile will be copied into the Icons
 # folder and a folder newDir will be created and anotherFile will be copied
 # into there.
-COPYDIRS=
+COPYDIRS=dist
 
 # If you want to copy one or more files or directories to the boot disk
 # image, add the root directory to this variable.  Any directories under
@@ -185,6 +185,7 @@ INIT_TYPE=Permanent
 # character.  Xcode makes it a bit tough to type a tab character by
 # default.  Press option-tab within Xcode to insert a tab character.
 gen:
+	$(CHTYP) -t icn dist/Icons/PKGS.Icons
 
 # For any files you generated in the gen target above, you should
 # add rules in genclean to remove those generated files when you
