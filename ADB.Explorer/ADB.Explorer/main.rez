@@ -26,7 +26,7 @@ resource rVersion (1) {
 };
 
 #if MESSAGE_CENTER == 1
-/* Bunde resource */
+/* Bundle resource */
 resource rBundle (1, preload, nospecialmemory) {
     nil,                           /* rIcon ID for application if you wish a custom icon */
     1,
