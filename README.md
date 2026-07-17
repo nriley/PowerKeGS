@@ -2,7 +2,7 @@
 
 Software power control for the Apple IIGS through the Sophisticated Circuits PowerKey
 
-**What is it?** On an Apple IIGS plugged into a Sophisticated Circuits PowerKey (not PowerKey Pro) with PKGS.Init installed, PowerKeGS tells the PowerKey to power off when you shut down from GS/OS.  (More information about the PowerKey is at [this 68KMLA thread]([url](https://68kmla.org/bb/threads/reverse-engineer-the-powerkey-by-sophisticated-circuits.40286/))).
+**What is it?** On an Apple IIGS plugged into a Sophisticated Circuits PowerKey (not PowerKey Pro) with PKGS.Init installed, PowerKeGS tells the PowerKey to power off when you shut down from GS/OS.  (More information about the PowerKey is at [this 68KMLA thread](https://68kmla.org/bb/threads/reverse-engineer-the-powerkey-by-sophisticated-circuits.40286/).
 
 **How do I install it?** Drag PKGS.Init into the System folder of your startup disk with System 6.0.1 or later. Let the Finder put it where it belongs. Then restart your IIGS.
 
