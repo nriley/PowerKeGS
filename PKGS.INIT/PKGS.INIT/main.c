@@ -13,7 +13,7 @@
 
 #include "pkgs.h"
 
-const char bootInfoString[] = "PKGS.Init             v1.0d1";
+const char bootInfoString[] = "PKGS.Init             v1.0.1";
 
 const Word os_p8_switch = 0x2d;
 
