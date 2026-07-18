@@ -14,7 +14,6 @@
 #include "pkgs.h"
 
 const char bootInfoString[] = "PKGS.Init             v1.0d1";
-LongWord version = 0x01006001; /* in rVersion format - XXX this is wrong */
 
 const Word os_p8_switch = 0x2d;
 
