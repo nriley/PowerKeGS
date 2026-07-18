@@ -27,7 +27,7 @@ receiveRegister start
 
 	sta >adbDataLen
 
-	tax		; y <- length
+	tay		; y <- length
 
 loop	lda [7],y
 	dey
